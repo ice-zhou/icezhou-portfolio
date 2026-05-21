@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -19,7 +19,7 @@ const remote = {
     'https://framerusercontent.com/images/geeG47IkajQh035JWtE0QL7uWwg.jpeg?scale-down-to=2048&width=3262&height=2300',
 };
 
-const heroSplineFrame = 'https://my.spline.design/interactivecubes-fIjLWa5vl6SUskp5fLpiWVtD/';
+const heroSplineScene = 'https://prod.spline.design/PxOKxwKBiQAInzI6/scene.splinecode?v=camera-final-20260521';
 
 const works = [
   {
@@ -144,6 +144,8 @@ const detailImages = [
 ];
 
 const navItems = ['Works [ 8 ]', 'About', 'Journal [ 5 ]', 'Contact', 'All Pages [ 11 ]', 'Remix Template'];
+const heroTitle = 'UX & Motion Designer';
+const heroTitleCharacters = Array.from(heroTitle);
 
 function Reveal({ children, className = '', delay = 0, float = true }) {
   return (
@@ -221,17 +223,94 @@ function ParallaxImage({
 }
 
 function HeroCover() {
+  const coverRef = useRef(null);
+  const hasLeftView = useRef(true);
+  const [replayKey, setReplayKey] = useState(0);
+  const replayScene = `${heroSplineScene}&replay=${replayKey}`;
+
+  useEffect(() => {
+    const cover = coverRef.current;
+    if (!cover) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (hasLeftView.current) {
+            setReplayKey((current) => current + 1);
+            hasLeftView.current = false;
+          }
+        } else {
+          hasLeftView.current = true;
+        }
+      },
+      { threshold: 0.08 }
+    );
+
+    observer.observe(cover);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <figure className="hero-media hero-media-static">
-      <iframe
+    <figure ref={coverRef} className="hero-media hero-media-static">
+      <div
+        key={replayScene}
         className="spline-cover"
-        src={heroSplineFrame}
-        title="Interactive 3D cover"
-        frameBorder="0"
-        width="100%"
-        height="100%"
+        dangerouslySetInnerHTML={{
+          __html: `<spline-viewer url="${replayScene}"></spline-viewer>`,
+        }}
       />
     </figure>
+  );
+}
+
+function AnimatedHeroTitle() {
+  const titleRef = useRef(null);
+  const hasLeftView = useRef(true);
+  const [replayKey, setReplayKey] = useState(0);
+
+  useEffect(() => {
+    const title = titleRef.current;
+    if (!title) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (hasLeftView.current) {
+            setReplayKey((current) => current + 1);
+            hasLeftView.current = false;
+          }
+        } else {
+          hasLeftView.current = true;
+        }
+      },
+      { threshold: 0.45 }
+    );
+
+    observer.observe(title);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <h1 ref={titleRef} className="hero-title-animated" aria-label={heroTitle}>
+      <span key={replayKey} className="hero-title-line" aria-hidden="true">
+        {heroTitleCharacters.map((character, index) => (
+          <span className={`hero-title-mask${character === ' ' ? ' is-space' : ''}`} key={`${character}-${index}`}>
+            <motion.span
+              className="hero-title-part"
+              initial={{ y: 18, opacity: 0, filter: 'blur(16px)' }}
+              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.62,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.06 + index * 0.035,
+              }}
+            >
+              {character === ' ' ? '\u00A0' : character}
+            </motion.span>
+          </span>
+        ))}
+      </span>
+    </h1>
   );
 }
 
@@ -294,13 +373,7 @@ function Hero() {
         </Reveal>
       </div>
       <div className="hero-title-row">
-        <motion.h1
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-        >
-          UX ，Motion ，Designer
-        </motion.h1>
+        <AnimatedHeroTitle />
         <Reveal className="hero-avatar" delay={0.08} float={false}>
           <img src={remote.avatar} alt="Illustrated designer avatar" />
         </Reveal>

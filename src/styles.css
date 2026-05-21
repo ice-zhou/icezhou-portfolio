@@ -200,10 +200,39 @@ img {
   letter-spacing: 0;
 }
 
+.hero-title-animated {
+  overflow: hidden;
+}
+
+.hero-title-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0;
+  width: 100%;
+}
+
+.hero-title-mask {
+  display: inline-block;
+  overflow: visible;
+  padding: 0 0.005em 0.08em;
+  vertical-align: bottom;
+}
+
+.hero-title-mask.is-space {
+  width: 0.28em;
+}
+
+.hero-title-part {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
 .hero-media {
   width: calc(100% - 48px);
-  height: min(37vw, 500px);
-  min-height: 360px;
+  aspect-ratio: 16 / 9;
+  height: max(260px, calc((100vw - 48px) * 0.5625 - 100px));
+  min-height: 260px;
   margin: 0 24px;
   overflow: hidden;
   border-radius: 14px;
@@ -733,8 +762,9 @@ p {
 
   .hero-media {
     width: calc(100% + 32px);
-    height: 252px;
-    min-height: 252px;
+    aspect-ratio: 16 / 9;
+    height: max(200px, calc((100vw + 32px) * 0.5625 - 100px));
+    min-height: 200px;
     margin-left: -16px;
     border-radius: 14px;
   }
