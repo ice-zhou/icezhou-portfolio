@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { Alignment, Fit, Layout, Rive as RiveRuntime } from '@rive-app/canvas';
 import './styles.css';
 
@@ -81,11 +81,11 @@ const workApproach = [
   {
     slug: 'project-framing',
     number: '01',
-    title: 'Project framing',
+    title: '米线游戏制作管理系统',
     description: 'Define the story, product goal, and visual direction before the interface starts taking shape.',
     image: '/assets/mixian-cover.png',
     video: '/assets/miline-cover.mp4',
-    tags: ['Research', 'UX strategy', 'Scope'],
+    tags: ['复杂系统', 'UX strategy', 'Scope'],
   },
   {
     slug: 'visual-system',
@@ -94,12 +94,12 @@ const workApproach = [
     description: 'Build a flexible design language for screens, motion states, assets, and repeated project moments.',
     image: remote.game,
     video: '/assets/bg-type-2.mp4',
-    tags: ['Art direction', 'UI system', '3D assets'],
+    tags: ['复杂系统', 'UX strategy', 'Scope'],
   },
   {
     slug: 'motion-prototype',
     number: '03',
-    title: 'Motion prototype',
+    title: 'HoYo & Seed Design',
     description: 'Translate key interactions into timing, rhythm, and animated prototypes that make the work feel alive.',
     image: remote.hero,
     video: '/assets/component-library-cover-v2.mp4',
@@ -132,12 +132,141 @@ const expertise = [
 ];
 
 const awards = [
-  ['Cannes Lights', '[Best Campaign Direction]', '2025'],
-  ['Lurssen Archive', '[Campaign Feature]', '2025'],
-  ['D&AC', '[Art Direction & Campaign]', '2024'],
-  ['Motion Craft', '[Excellence in 3D Narrative]', '2023'],
-  ['The Visualist', '[Creative Direction]', '2022'],
+  {
+    title: '米哈游',
+    label: '[企业效能｜B端]',
+    year: '2026',
+    roleTitle: '资深UX设计师',
+    badge: '连续绩效季涨薪20%，优秀导师',
+    intro:
+      '负责企业效能方向多个核心 B 端系统设计，覆盖游戏制作管理、本地化协作、设计系统与组件配置平台。作为设计侧 Owner，承担产品 0-1 设计、复杂流程梳理、体验方案设计、设计规范建设及设计小组协作支持。',
+    details: [
+      {
+        title: '米线游戏制作管理系统',
+        text: '面向游戏项目组的制作管理系统，服务游戏策划、制作、程序、QA 等全流程协作场景。作为设计侧 Owner，负责产品从 0-1 的整体 UX 设计，并带领设计小组长期支持上线与迭代。',
+      },
+      {
+        title: 'LMS 本地化系统',
+        text: '面向游戏国际化与多语言本地化协作场景，负责整个产品 UX 设计。系统服务版本内容更新、多语种翻译、语言审核、本地化适配等复杂流程。',
+      },
+      {
+        title: 'HoYo Design 组件体系与组件配置平台',
+        text: '作为设计侧 Owner，负责米哈游基础组件体系 HoYo Design 的 0-1 搭建，并在此基础上完成组件库配置平台设计与上线。支持不同业务平台基于统一组件体系进行风格定制，降低重复设计与研发成本。',
+      },
+    ],
+    metaRole: 'UX设计师',
+    metaYear: '2022.08 – 至今',
+  },
+  {
+    title: '字节跳动',
+    label: '[教育线｜B+C端]',
+    year: '2022',
+    roleTitle: 'UX 设计师',
+    badge: '绩效M+ 完成2-1～2-2晋级',
+    intro:
+      '负责教育资源生产方向业务，包括国内外教育资源生产、消费、结算、产能监控、质量管控，以及面向海外市场的题目快速问答体验。',
+    details: [
+      {
+        title: '磁极众包 & Solverlance',
+        items: [
+          '0-1 负责磁极众包（国内）与 Solverlance（海外）Web + H5 端设计。',
+          '面向 B 端资源生产流程，设计覆盖任务生产、任务消费、结算、产能监控、质量管理等核心模块。',
+          '面向 C 端用户，支持美国、印度市场的题目快速问答场景。',
+          '负责产品内动效设计、运营活动设计与关键视觉体验。',
+        ],
+      },
+      {
+        title: 'Seed 组件库 & Brickform 低代码搭建平台',
+        items: [
+          '结合教育资源生产业务特性，与前端团队从 0-1 搭建 Seed 组件库。',
+          '组件库支持 Web 端搭建后无缝适配 H5 端，提升跨端设计与研发效率。',
+          '基于 Seed 组件库，完成教育资源生产系统低代码搭建平台 Brickform 的设计。',
+          '支持业务方根据不同生产场景快速搭建资源生产系统。',
+        ],
+      },
+    ],
+    metaRole: 'UX 设计师',
+    metaYear: '2020.08 – 2022.08',
+  },
+  {
+    title: '爱奇艺',
+    label: '[智能平台｜C端]',
+    year: '2020',
+    roleTitle: 'UI / 产品体验设计师',
+    badge: '绩效A+ 2年2涨',
+    intro:
+      '负责爱奇艺主站创作中心模块 UI 设计，包括剧情二创、剧情表情包制作、视频剪辑等内容创作工具。创作中心基于爱奇艺视频资源，为用户提供内容再创作能力。',
+    details: [
+      {
+        title: '爱奇艺主站创作中心',
+        items: [
+          '独立负责爱奇艺主站创作中心模块 UI 设计。',
+          '设计剧情二创、剧情表情包制作、视频剪辑等内容创作场景。',
+          '支持创作中心相关重大节日活动、创作奖励、流量扶持等运营活动视觉设计。',
+          '根据内容创作场景持续优化用户体验与视觉表达。',
+        ],
+      },
+      {
+        title: '随刻 Vlog 视频 App',
+        items: [
+          '参与 0-1 搭建随刻 Vlog 视频 App。',
+          '负责视频剪辑部分设计，支持 Vlog 细分领域视频创作体验。',
+          '参与移动端内容创作工具的交互与视觉体验设计。',
+        ],
+      },
+    ],
+    metaRole: 'UI / 产品体验设计师',
+    metaYear: '2018.08 – 2020.08',
+  },
+  {
+    title: '沪江',
+    label: '[CCtalk｜C端]',
+    year: '2018',
+    roleTitle: 'UI 设计师',
+    badge: '',
+    intro:
+      '负责教育直播产品 CCtalk 移动端与 Web 端 UI 设计，覆盖老师端授课、学员端学习、在线学习社区等核心场景。',
+    details: [
+      {
+        title: 'CCtalk 直播教育平台',
+        items: [
+          '负责 CCtalk 移动端、Web 端核心功能 UI 设计。',
+          '独立负责微课小程序 UI 设计。',
+          '支持老师端授课、学员端学习、在线学习社区等场景体验优化。',
+          '定期收集业务需求，结合老师与学员用户反馈，规划产品优化路径并推进落地。',
+        ],
+      },
+    ],
+    metaRole: 'UI 设计师',
+    metaYear: '2017.08 – 2018.08',
+  },
 ];
+
+const efficiencyShowcase = {
+  hero: '/assets/figma-ai-hero.png',
+  heroVideo: '/assets/ascii-magic-8.mp4',
+  heroPoster: '/assets/ascii-magic-7.png',
+  practices: [
+    {
+      kicker: 'AI x AE',
+      title: '抽奖动画自动化插件',
+      image: '/assets/figma-ai-card-ae.png',
+      alt: 'AI x AE 抽奖动画自动化插件',
+    },
+    {
+      kicker: 'AI x Skill',
+      title: '生成符合设计规范页面',
+      image: '/assets/figma-ai-card-skill.png',
+      alt: 'AI x Skill 生成符合设计规范页面',
+    },
+    {
+      kicker: 'AI x Design Context',
+      title: '理解功能逻辑生成设计',
+      image: '/assets/figma-ai-card-context.png',
+      alt: 'AI x Design Context 理解功能逻辑生成设计',
+    },
+  ],
+};
 
 const quotes = [
   {
@@ -325,7 +454,15 @@ const workDetails = {
 
 const navItems = ['Works [ 4 ]', 'About', 'Journal [ 5 ]', 'Contact', 'All Pages [ 11 ]'];
 const heroTitle = 'UX & Motion Designer';
-const heroTitleCharacters = Array.from(heroTitle);
+const themeStorageKey = 'icezhou-portfolio-theme';
+
+const getInitialTheme = () => {
+  const savedTheme = window.localStorage.getItem(themeStorageKey);
+  return savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark';
+};
+
+const initialTheme = getInitialTheme();
+document.documentElement.dataset.theme = initialTheme;
 
 const getRouteFromWindow = () => ({
   pathname: window.location.pathname,
@@ -498,24 +635,22 @@ function AnimatedHeroTitle() {
 
   return (
     <h1 ref={titleRef} className="hero-title-animated" aria-label={heroTitle}>
-      <span key={replayKey} className="hero-title-line" aria-hidden="true">
-        {heroTitleCharacters.map((character, index) => (
-          <span className={`hero-title-mask${character === ' ' ? ' is-space' : ''}`} key={`${character}-${index}`}>
-            <motion.span
-              className="hero-title-part"
-              initial={{ y: 18, opacity: 0, filter: 'blur(16px)' }}
-              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-              transition={{
-                duration: 0.62,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.06 + index * 0.035,
-              }}
-            >
-              {character === ' ' ? '\u00A0' : character}
-            </motion.span>
-          </span>
-        ))}
-      </span>
+      <motion.span
+        key={replayKey}
+        className="hero-title-image-wrap"
+        aria-hidden="true"
+        initial={{ y: 18, opacity: 0, filter: 'blur(16px)' }}
+        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1], delay: 0.04 }}
+      >
+        <img className="hero-title-image hero-title-image-dark" src="/assets/hero-title-dark.png" alt="" fetchPriority="high" />
+        <img
+          className="hero-title-image hero-title-image-light"
+          src="/assets/hero-title-light.png"
+          alt=""
+          fetchPriority="high"
+        />
+      </motion.span>
     </h1>
   );
 }
@@ -618,21 +753,10 @@ function RiveAvatar() {
   );
 }
 
-function Header({ routePath = window.location.pathname }) {
+function Header({ routePath = window.location.pathname, theme, onToggleTheme }) {
   const [open, setOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(() => window.scrollY > 120);
-  const isHome = routePath === '/';
-  const showNavAvatar = !isHome || hasScrolled;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 120);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [routePath]);
+  const showNavAvatar = false;
+  const isDark = theme === 'dark';
 
   return (
     <header className="site-header">
@@ -653,6 +777,14 @@ function Header({ routePath = window.location.pathname }) {
             </a>
           ))}
         </nav>
+        <button
+          className="theme-toggle"
+          type="button"
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          onClick={onToggleTheme}
+        >
+          {isDark ? <Sun size={17} strokeWidth={2} /> : <Moon size={17} strokeWidth={2} />}
+        </button>
         <button
           className="menu-button"
           type="button"
@@ -681,6 +813,16 @@ function Header({ routePath = window.location.pathname }) {
             {item}
           </a>
         ))}
+        <button
+          className="theme-toggle mobile-theme-toggle"
+          type="button"
+          onClick={() => {
+            onToggleTheme();
+            setOpen(false);
+          }}
+        >
+          {isDark ? 'Light Mode' : 'Dark Mode'}
+        </button>
       </motion.nav>
     </header>
   );
@@ -710,104 +852,299 @@ function Hero() {
 }
 
 function WorkGrid() {
+  const stickyIntroRef = useRef(null);
+  const [introStyle, setIntroStyle] = useState({});
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateIntroProgress = () => {
+      frame = 0;
+      const intro = stickyIntroRef.current;
+      if (!intro || window.matchMedia('(max-width: 900px)').matches) {
+        setIntroStyle({});
+        return;
+      }
+
+      const stickyTop = parseFloat(window.getComputedStyle(intro).top) || 0;
+      const parentRect = intro.parentElement?.getBoundingClientRect();
+      if (!parentRect) return;
+
+      const progress = Math.min(1, Math.max(0, (stickyTop - parentRect.top) / 320));
+      const viewportWidth = window.innerWidth;
+      const expandedTitleSize = Math.min(78, Math.max(44, viewportWidth * 0.051));
+      const compactTitleSize = 40;
+      const titleSize = expandedTitleSize - (expandedTitleSize - compactTitleSize) * progress;
+      const titleLine = 1.35 - 0.15 * progress;
+      const stickyBleed = 24;
+      const cardGap = 26;
+      const expandedIntroHeight = Math.min(285, Math.max(250, viewportWidth * 0.172)) + stickyBleed;
+      const compactIntroHeight = stickyBleed + 28 + 28 + compactTitleSize * 1.2 * 2 + 28;
+      const currentIntroHeight = expandedIntroHeight - (expandedIntroHeight - compactIntroHeight) * progress;
+      const expandedCardTop = stickyTop + stickyBleed + (expandedIntroHeight - stickyBleed) + cardGap;
+      const compactCardTop = stickyTop + stickyBleed + 28 + 28 + compactTitleSize * 1.2 * 2 + 32;
+      const cardTop = expandedCardTop - (expandedCardTop - compactCardTop) * progress;
+
+      const nextStyle = {
+        '--works-title-size': `${titleSize.toFixed(2)}px`,
+        '--works-title-line': titleLine.toFixed(3),
+        '--works-current-intro-height': `${currentIntroHeight.toFixed(2)}px`,
+        '--works-card-top': `${cardTop.toFixed(2)}px`,
+      };
+
+      setIntroStyle((current) =>
+        current['--works-title-size'] === nextStyle['--works-title-size'] &&
+        current['--works-card-top'] === nextStyle['--works-card-top']
+          ? current
+          : nextStyle,
+      );
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateIntroProgress);
+    };
+
+    updateIntroProgress();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }, []);
+
   return (
     <MotionSection className="section work-section" id="works">
-      <div className="section-head">
-        <h2>主要作品</h2>
-        <a href="#works">View All</a>
-      </div>
-      <div className="work-approach">
-        <Reveal className="work-approach-head">
-          <div>
-            <span className="section-pill">
-              <i></i>
-              Works
-            </span>
-            <h3>Clear steps for stronger portfolio stories</h3>
-          </div>
-          <a href="#works" className="approach-link">
-            <span>Project approach</span>
-            <ArrowUpRight size={30} strokeWidth={2.2} />
-          </a>
-        </Reveal>
-        <div className="work-approach-stack">
-          {workApproach.map((item, index) => (
-            <motion.a
-              className="work-approach-card"
-              href={`/works/${item.slug}`}
-              key={item.title}
-              aria-label={item.title}
-              style={{ zIndex: index + 1 }}
-              initial={{ opacity: 0, y: 96 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.24, margin: '-6% 0px -6% 0px' }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <figure>
-                {item.video ? (
-                  <video
-                    className="work-approach-video"
-                    src={item.video}
-                    poster={item.image}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    onCanPlay={(event) => {
-                      event.currentTarget.play().catch(() => {});
-                    }}
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <img
-                    className={item.imageClassName || undefined}
-                    src={item.image}
-                    alt=""
-                    loading={index > 1 ? 'lazy' : 'eager'}
-                  />
-                )}
-              </figure>
-              <div className="work-approach-copy">
-                <span>{item.number}</span>
-                <h4>{item.title}</h4>
-                <p>{item.description}</p>
-                <div className="approach-tags">
-                  {item.tags.map((tag) => (
-                    <small key={tag}>{tag}</small>
-                  ))}
-                </div>
-              </div>
-            </motion.a>
-          ))}
+      <div className="work-approach" style={introStyle}>
+        <div className="section-head work-section-head">
+          <h2>核心项目</h2>
         </div>
-      </div>
-      <div className="works-grid">
-        {featuredWorks.map((work, index) => (
-          <Reveal key={work.title} className="work-card" delay={(index % 2) * 0.1}>
-            <a className="image-link" href={`/works/${work.slug}`} aria-label={work.title}>
-              <ParallaxImage
-                as="span"
-                src={work.image}
-                alt={work.alt}
-                loading={index > 1 ? 'lazy' : 'eager'}
-                hover={false}
+        <div className="work-pinned-list">
+          <div className="work-sticky-intro" ref={stickyIntroRef}>
+            <Reveal className="work-approach-head">
+              <div>
+                <span className="section-pill">
+                  <i></i>
+                  Works
+                </span>
+                <h3>
+                  游戏业务
+                  <br />
+                  效率研发工具-UX设计
+                </h3>
+              </div>
+              <a href="#works" className="approach-link">
+                <span>下载PDF版本</span>
+                <ArrowUpRight size={30} strokeWidth={2.2} />
+              </a>
+            </Reveal>
+          </div>
+          <div className="work-approach-stack">
+            {workApproach.map((item, index) => (
+              <WorkApproachCard
+                item={item}
+                index={index}
+                key={item.title}
               />
-            </a>
-            <p>{work.type}</p>
-            <h3>
-              <a href={`/works/${work.slug}`}>{work.title}</a>
-            </h3>
-          </Reveal>
-        ))}
+            ))}
+          </div>
+        </div>
+        <EfficiencyShowcase />
       </div>
     </MotionSection>
   );
 }
 
+function WorkApproachCard({ item, index }) {
+  return (
+    <a
+      className="work-approach-card"
+      href={`/works/${item.slug}`}
+      aria-label={item.title}
+      style={{ zIndex: index + 1 }}
+    >
+      <figure>
+        {item.video ? (
+          <video
+            className="work-approach-video"
+            src={item.video}
+            poster={item.image}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            onCanPlay={(event) => {
+              event.currentTarget.play().catch(() => {});
+            }}
+            aria-hidden="true"
+          />
+        ) : (
+          <img
+            className={item.imageClassName || undefined}
+            src={item.image}
+            alt=""
+            loading={index > 1 ? 'lazy' : 'eager'}
+          />
+        )}
+      </figure>
+      <div className="work-approach-copy">
+        <span>{item.number}</span>
+        <h4>{item.title}</h4>
+        <p>{item.description}</p>
+        <div className="approach-tags">
+          {item.tags.map((tag) => (
+            <small key={tag}>{tag}</small>
+          ))}
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function EfficiencyShowcase() {
+  return (
+    <section className="ai-exploration-section" id="ai-exploration" aria-label="AI Exploration">
+      <AiVideoShrinkStage />
+    </section>
+  );
+}
+
+function AiVideoShrinkStage() {
+  const stageRef = useRef(null);
+  const frameRef = useRef(null);
+  const headRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    const frame = frameRef.current;
+    const head = headRef.current;
+    const content = contentRef.current;
+    if (!stage || !frame || !head || !content) return undefined;
+
+    let raf = 0;
+
+    const readPxVar = (name, fallback) => {
+      const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      const parsed = Number.parseFloat(value);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    };
+
+    const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+    const smooth = (value) => value * value * (3 - 2 * value);
+
+    const update = () => {
+      raf = 0;
+      const rect = stage.getBoundingClientRect();
+      const viewportW = window.innerWidth;
+      const viewportH = window.innerHeight;
+      const scrollable = Math.max(1, rect.height - viewportH);
+      const progress = smooth(clamp(-rect.top / scrollable));
+      const pagePad = readPxVar('--page-pad', 24);
+      const pageMax = readPxVar('--page-max', 1300);
+      const targetW = Math.min(viewportW - pagePad * 2, pageMax);
+      const targetH = Math.min(325, Math.max(180, (targetW / 1502) * 325));
+      const targetRadius = viewportW < 760 ? 18 : 22;
+      const width = viewportW + (targetW - viewportW) * progress;
+      const height = viewportH + (targetH - viewportH) * progress;
+      const radius = targetRadius * progress;
+      const centeredTop = (viewportH - height) / 2;
+      const headBottom = head.offsetTop + head.offsetHeight;
+      const finalTop = Math.min(viewportH - targetH - 28, headBottom + 32);
+      const y = (finalTop - centeredTop) * progress;
+      const frameTop = centeredTop + y;
+      const finalContentTop = finalTop + targetH + 32;
+
+      stage.style.setProperty('--ai-shrink-progress', progress.toFixed(4));
+      stage.style.setProperty('--ai-final-content-top', `${finalContentTop}px`);
+      frame.style.width = `${width}px`;
+      frame.style.height = `${height}px`;
+      frame.style.borderRadius = `${radius}px`;
+      frame.style.transform = `translate3d(-50%, calc(-50% + ${y}px), 0)`;
+      const clearProgress = clamp((frameTop - headBottom - 8) / 24);
+      const headProgress = clearProgress * clamp((progress - 0.72) / 0.18);
+      head.style.opacity = headProgress.toFixed(4);
+      head.style.transform = `translate3d(-50%, ${(1 - headProgress) * 22}px, 0)`;
+      content.style.setProperty('--ai-content-offset', `${finalContentTop - viewportH}px`);
+    };
+
+    const requestUpdate = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <>
+      <div className="ai-video-shrink-stage" ref={stageRef}>
+        <div className="ai-video-shrink-sticky">
+          <div className="ai-video-shrink-head" ref={headRef}>
+            <div className="ai-exploration-title">
+              <span className="section-pill">
+                <i></i>
+                Works
+              </span>
+              <h2>
+                AI
+                <br />
+                探索与实践
+              </h2>
+            </div>
+            <a href="#ai-exploration" className="ai-exploration-link">
+              <span>下载PDF版本</span>
+              <ArrowUpRight size={30} strokeWidth={2.2} />
+            </a>
+          </div>
+          <figure className="ai-video-shrink-frame" ref={frameRef}>
+            <video
+              src={efficiencyShowcase.heroVideo}
+              poster={efficiencyShowcase.heroPoster}
+              aria-label="AI Exploration 视觉展示"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            />
+          </figure>
+        </div>
+      </div>
+      <div className="ai-video-shrink-content" ref={contentRef}>
+        <div className="ai-practice-list" aria-label="AI 实践列表">
+          {efficiencyShowcase.practices.map((item, index) => (
+            <article className="ai-practice-card" key={`${item.title}-${index}`} aria-label={item.title}>
+              <div className="ai-practice-copy">
+                <span>AI</span>
+                <h3>
+                  <small>{item.kicker}</small>
+                  {item.title}
+                </h3>
+              </div>
+              <img src={item.image} alt={item.alt} loading="lazy" />
+            </article>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
 function Expertise() {
   return (
-    <MotionSection className="section split-section sticky-module" id="about" sticky>
+    <MotionSection className="section split-section content-810 sticky-module" id="about" sticky>
       <aside className="sticky-title">
         <Reveal className="section-copy sticky-title-inner">
           <h2>
@@ -832,32 +1169,117 @@ function Expertise() {
 }
 
 function Awards() {
+  const [openIndex, setOpenIndex] = useState(0);
+
   return (
-    <MotionSection className="section rows-section sticky-module" sticky>
+    <MotionSection className="section rows-section resume-section resume-recap-section content-810 sticky-module" sticky>
       <aside className="sticky-title">
-        <Reveal className="rows-title sticky-title-inner">
+        <Reveal className="rows-title resume-recap-title sticky-title-inner">
           <h2>
-            履历 <span>[5]</span>
+            履历 <span>[4]</span>
           </h2>
+          <p className="resume-recap-period">2017.08 - 至今</p>
         </Reveal>
       </aside>
-      <div className="rows">
-        {awards.map(([title, label, year]) => (
-          <Reveal className="award-row" key={title}>
-            <h3>{title}</h3>
-            <span>·</span>
-            <p>{label}</p>
-            <time>{year}</time>
-          </Reveal>
+      <div className="resume-accordion">
+        {awards.map((item, index) => (
+          <ResumeAccordionItem
+            item={item}
+            index={index}
+            isOpen={openIndex === index}
+            key={item.title}
+            onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
+          />
         ))}
       </div>
     </MotionSection>
   );
 }
 
+function ResumeAccordionItem({ item, index, isOpen, onToggle }) {
+  const panelId = `resume-panel-${index}`;
+  const resumeMetaLabel = item.label
+    .replace('[', '')
+    .replace(']', '')
+    .replace(/｜/g, ' | ')
+    .replace(/([BC])端/g, '$1 端');
+  const resumeNo = String(index + 1).padStart(2, '0');
+
+  return (
+    <article className={`resume-accordion-item${isOpen ? ' is-open' : ''}`}>
+      <button
+        aria-controls={panelId}
+        aria-expanded={isOpen}
+        className="resume-accordion-trigger"
+        onClick={onToggle}
+        type="button"
+      >
+        <span className="resume-accordion-year">{item.year}</span>
+        <span className="resume-accordion-heading">
+          <span>{item.title}</span>
+          <small>[{resumeMetaLabel}]</small>
+        </span>
+        <span className="resume-accordion-icon" aria-hidden="true" />
+      </button>
+      <motion.div
+        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+        className="resume-accordion-panel"
+        id={panelId}
+        initial={false}
+        transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <span className="resume-accordion-panel-year" aria-hidden="true">
+          {item.year}
+        </span>
+        <div className="resume-accordion-copy is-mihoyo-detail">
+          <div className="mihoyo-resume-detail">
+            <div className="mihoyo-role">
+              <h4>
+                <span className="mihoyo-role-title">{item.roleTitle}</span>
+                {item.badge ? <span className="mihoyo-role-badge">{item.badge}</span> : null}
+              </h4>
+              <p>{item.intro}</p>
+            </div>
+            <div className="mihoyo-project-list">
+              {item.details.map((detail) => (
+                <section className="mihoyo-project" key={detail.title}>
+                  <h4>{detail.title}</h4>
+                  {detail.items ? (
+                    <ul>
+                      {detail.items.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>{detail.text}</p>
+                  )}
+                </section>
+              ))}
+            </div>
+            <dl className="mihoyo-meta">
+              <div>
+                <dt>Role</dt>
+                <dd>{item.metaRole}</dd>
+              </div>
+              <div>
+                <dt>Year</dt>
+                <dd>{item.metaYear}</dd>
+              </div>
+              <div>
+                <dt>No.</dt>
+                <dd>{resumeNo}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </motion.div>
+    </article>
+  );
+}
+
 function Skills() {
   return (
-    <MotionSection className="section split-section skills-section sticky-module" sticky>
+    <MotionSection className="section split-section skills-section content-810 sticky-module" sticky>
       <aside className="sticky-title">
         <Reveal className="section-copy sticky-title-inner">
           <h2>
@@ -940,14 +1362,7 @@ function InteractiveEmbed({ kind, src }) {
 
 function Footer() {
   return (
-    <footer className="footer" id="contact">
-      <Reveal>
-        <p>Available for selected art direction, campaign systems, and motion-led identities.</p>
-        <a href="mailto:hello@finnwilder.studio">hello@finnwilder.studio</a>
-      </Reveal>
-      <InteractiveEmbed kind="spline" />
-      <InteractiveEmbed kind="rive" />
-    </footer>
+    <footer className="footer" id="contact" aria-label="Footer" />
   );
 }
 
@@ -982,8 +1397,6 @@ function HomePage() {
         <Expertise />
         <Awards />
         <Skills />
-        <Testimonials />
-        <Journal />
       </main>
       <Footer />
     </>
@@ -1057,6 +1470,7 @@ function WorkDetail({ work, detail }) {
 
 function App() {
   const [route, setRoute] = useState(getRouteFromWindow);
+  const [theme, setTheme] = useState(initialTheme);
   const [routeTransition, setRouteTransition] = useState({
     phase: 'idle',
     direction: 'forward',
@@ -1109,9 +1523,24 @@ function App() {
     }
     : null;
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem(themeStorageKey, theme);
+  }, [theme]);
+
   useLayoutEffect(() => {
     routeRef.current = route;
     scrollToRouteTarget(route);
+  }, [route.pathname, route.search, route.hash]);
+
+  useEffect(() => {
+    if (!route.hash) return undefined;
+
+    const timer = window.setTimeout(() => {
+      scrollToRouteTarget(route);
+    }, 120);
+
+    return () => window.clearTimeout(timer);
   }, [route.pathname, route.search, route.hash]);
 
   useEffect(() => {
@@ -1212,7 +1641,11 @@ function App() {
 
   return (
     <>
-      <Header routePath={route.pathname} />
+      <Header
+        routePath={route.pathname}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+      />
       <RouteTransitionOverlay transition={routeTransition} />
       {page}
     </>
