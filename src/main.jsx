@@ -1,12 +1,9 @@
-import React, { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { Alignment, Fit, Layout, Rive as RiveRuntime } from '@rive-app/canvas';
 import './styles.css';
-
-const Spline = React.lazy(() => import('@splinetool/react-spline'));
-const RivePlayer = React.lazy(() => import('@rive-app/react-canvas'));
 
 const remote = {
   profile: 'https://framerusercontent.com/images/nKZxL3ov6hieQXZbst1I06HCxPI.jpg?width=627&height=627',
@@ -93,39 +90,185 @@ const workApproach = [
     title: '本地化翻译编辑器',
     description: '为米哈游国际化团队；构建集翻译编辑、上下文辅助、TM/TB 资产复用、审校质检于一体的协作型编辑器，帮助多语种团队在高频版本迭代中提升翻译效率与交付一致性。',
     image: remote.game,
+    detailHeroImage: '/assets/localization-hero-object.png',
+    detailHeroImageMode: 'contain',
     video: '/assets/bg-type-2.mp4',
     tags: ['复杂工具', '多语种协作', '游戏本地化'],
   },
   {
     slug: 'motion-prototype',
     number: '03',
-    title: 'HoYo & Seed Design',
-    description: '主导0-1搭建米哈游HoYo组件库 & 字节教育线Seed组件库',
+    title: 'HoYo&Seed Design 组件库',
+    titleParts: ['HoYo', '&', 'Seed', 'Design', '组件库'],
+    description: '米哈游 HoYoDesign 组件库  +  可视化配置平台\n字节跳动教育 SeedDesign 组件库  +  低代码配置平台',
     image: '/assets/component-library-display/hyd/01.png',
+    detailHeroImage: '/assets/component-library-hero-object.png',
+    detailHeroImageMode: 'contain',
     video: '/assets/component-library-cover-v2.mp4',
     tags: ['组件库', '基建系统', '映射', '配置平台'],
   },
   {
     slug: 'case-delivery',
     number: '04',
-    title: '磁极 & Solverlance',
-    description: '字节跳动教育资产生产平台',
-    image: '/assets/ascii-game-controller-black.gif',
-    imageClassName: 'ascii-controller-cover',
-    tags: ['Portfolio', 'Case study', 'Launch'],
+    title: '磁极众包 & Solvelancer',
+    titleParts: ['磁极众包', '&', 'Solvelancer'],
+    description:
+      '全球众包平台，使企业及业务方能够将零散工作外包给分布式劳动力。目前可接纳文字、图片、视频等教育内容资产的生产，产品功能允许多端配置生产流程，包括生产、质检、仲裁、验收等多个生产节点的自由定制',
+    image: '/assets/magnetic-crowd/01.png',
+    detailHeroImage: '/assets/magnetic-crowd-hero-object.png?v=magnetic-hero-object-20260705b',
+    detailHeroImageMode: 'contain',
+    detailHeroLabel: 'Works',
+    detailHeroKicker: 'Project approach',
+    detailHeroVariant: 'compact-figma',
+    video: '/assets/magnetic-crowd-cover.mp4?v=magnetic-cover-latest-20260703',
+    tags: ['众包平台', 'Web + H5', '教育资产'],
   },
 ];
+
+const lifeLinkTabs = [
+  {
+    showcaseIndex: 0,
+    items: [
+      { icon: '⛺️', label: '露营' },
+      { icon: '🏔️', label: '徒步' },
+      { icon: '🎸', label: '摇滚' },
+    ],
+  },
+  {
+    showcaseIndex: 12,
+    items: [
+      { icon: '🛩️', label: '旅行' },
+      { icon: '📸', label: '摄影' },
+      { icon: '🎮', label: '游戏' },
+    ],
+  },
+];
+
+const getLifeTabIndexForShowcase = (showcaseIndex) => {
+  let tabIndex = 0;
+  lifeLinkTabs.forEach((tab, index) => {
+    if (showcaseIndex >= tab.showcaseIndex) {
+      tabIndex = index;
+    }
+  });
+  return tabIndex;
+};
+
+const lifeLinkShowcases = [
+  {
+    label: '露营',
+    main: '/assets/life-tabs/first-group/01.png',
+    alt: '露营生活照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '旅行',
+    main: '/assets/life-tabs/first-group/02.png',
+    alt: '旅行生活照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '徒步',
+    main: '/assets/life-tabs/first-group/03.png',
+    alt: '徒步生活照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '露营细节',
+    main: '/assets/life-tabs/first-group/04.png',
+    alt: '露营生活细节',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '旅行路上',
+    main: '/assets/life-tabs/first-group/05.png',
+    alt: '旅行生活照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '山野徒步',
+    main: '/assets/life-tabs/first-group/06.png',
+    alt: '山野徒步照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '户外片段',
+    main: '/assets/life-tabs/first-group/07.png',
+    alt: '户外生活照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '旅途记录',
+    main: '/assets/life-tabs/first-group/08.png',
+    alt: '旅途记录照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '自然风景',
+    main: '/assets/life-tabs/first-group/09.png',
+    alt: '自然风景照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '摇滚现场',
+    main: '/assets/life-tabs/first-group/10.png',
+    alt: '摇滚现场照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '音乐节现场',
+    main: '/assets/life-tabs/first-group/11.png',
+    alt: '音乐节现场照片',
+    mainPosition: '50% 50%',
+  },
+  {
+    label: '舞台演出',
+    main: '/assets/life-tabs/first-group/12.png',
+    alt: '舞台演出照片',
+    mainPosition: '50% 50%',
+  },
+  ...Array.from({ length: 10 }, (_, index) => {
+    const number = String(index + 1).padStart(2, '0');
+    return {
+      label: `第二组 ${number}`,
+      main: `/assets/life-tabs/second-group/${number}.png`,
+      alt: `第二组生活照片 ${number}`,
+      mainPosition: '50% 50%',
+    };
+  }),
+];
+
+const getLifeTabShowcaseRange = (tabIndex) => {
+  const start = lifeLinkTabs[tabIndex].showcaseIndex;
+  const end = lifeLinkTabs[tabIndex + 1]?.showcaseIndex ?? lifeLinkShowcases.length;
+  return {
+    start,
+    end,
+    length: end - start,
+  };
+};
+
+const projectFramingFigmaBoardUrl =
+  'https://www.figma.com/board/c294SSyHAp8Incr6QWVvK3/%E6%B8%B8%E6%88%8F%E7%BE%8E%E6%9C%AF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B?node-id=0-1&t=fV5slRJQCqZNdwG4-1';
+const projectFramingFigmaEmbed = {
+  type: 'figmaEmbed',
+  src: `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(projectFramingFigmaBoardUrl)}`,
+  title: '游戏美术制作流程 Figma 小窗预览',
+};
 
 const projectFramingGallery = Array.from({ length: 30 }, (_, index) => {
   const number = String(index + 1).padStart(2, '0');
   const assetVersion = ['01', '05', '08'].includes(number) ? '?v=portfolio-20260626d' : '';
   return {
+    number,
     src: `/assets/mixian-portfolio/${number}.png${assetVersion}`,
     previewSrc: `/assets/mixian-portfolio-preview/${number}.png${assetVersion}`,
     alt: `米线游戏制作管理项目图 ${number}`,
     preserveRatio: true,
   };
-});
+})
+  .filter((image) => image.number !== '17')
+  .flatMap((image, index) => (index === 0 ? [image, projectFramingFigmaEmbed] : [image]));
 
 const localizationGallery = Array.from({ length: 34 }, (_, index) => {
   const number = String(index + 1).padStart(2, '0');
@@ -158,9 +301,19 @@ const componentLibraryGallery = [
   }),
 ];
 
+const magneticCrowdGallery = Array.from({ length: 12 }, (_, index) => {
+  const number = String(index + 1).padStart(2, '0');
+  return {
+    src: `/assets/magnetic-crowd/${number}.png`,
+    alt: `磁极众包与 Solvelancer 项目图 ${number}`,
+    preserveRatio: true,
+    loading: 'eager',
+  };
+});
+
 const detailCopyHeadingTexts = new Set([
-  'HoYo Design 组件体系与组件配置平台',
-  'Seed 组件库 & Brickform 低代码搭建平台',
+  'HoYo Design 组件体系与配置平台',
+  'Seed组件库 & Brickform低代码搭建平台',
   '项目背景',
   '方案设计',
   '核心能力',
@@ -186,6 +339,47 @@ const aiAeFigmaAssets = {
   workflowAfter: 'https://www.figma.com/api/mcp/asset/0fb02422-5c99-4613-8053-03c6e6c1b718',
   finalEffectRight: '/assets/ai-ae-final-effect-right.png',
   finalEffectLeft: '/assets/ai-ae-final-effect-left.png',
+};
+
+const aiSkillFigmaAssets = {
+  constraintLight: 'https://www.figma.com/api/mcp/asset/28bff141-09d4-4a66-aebf-bb0b81e1543a',
+  constraintDark: 'https://www.figma.com/api/mcp/asset/f2156a17-64a2-456b-9aba-dc94ab52f0eb',
+  componentSkillA: 'https://www.figma.com/api/mcp/asset/b41c35ca-e58b-4228-9c5e-d32c7d895863',
+  componentSkillB: 'https://www.figma.com/api/mcp/asset/de76c333-4786-4808-8c6b-7961ed81817a',
+  pageSkillA: 'https://www.figma.com/api/mcp/asset/5788d6de-7ad0-40fe-a59b-96aa8b8d5b38',
+  pageSkillB: 'https://www.figma.com/api/mcp/asset/4335f197-bca7-496f-b39e-9550a5999bec',
+  blockSkillA: 'https://www.figma.com/api/mcp/asset/8bd020a7-049e-4da7-8ec3-178b4897c005',
+  blockSkillB: 'https://www.figma.com/api/mcp/asset/a82c9493-4040-4e1c-946b-f256b183aa85',
+  gitBanner: 'https://www.figma.com/api/mcp/asset/309086b0-996e-4415-b761-c87e294ffa4c',
+  gitMobileA: 'https://www.figma.com/api/mcp/asset/6df0cf2d-9556-4d2a-8a1c-e7b39196ea25',
+  gitMobileB: 'https://www.figma.com/api/mcp/asset/d97c64d2-17ec-4f6e-b1fc-aacb246d664e',
+  gitRules: 'https://www.figma.com/api/mcp/asset/c8d83e51-1641-4812-ad49-65598177bba1',
+  scenarioDesigner: 'https://www.figma.com/api/mcp/asset/a8c9dece-767d-4bcb-9188-18dbbebf86fd',
+  scenarioProduct: 'https://www.figma.com/api/mcp/asset/8eea619f-8732-4749-a8d6-907b98c7644c',
+  scenarioGameTeam: 'https://www.figma.com/api/mcp/asset/e11db05d-b6b2-455d-b30f-e784813da741',
+};
+
+const aiDesignContextFigmaAssets = {
+  targetChain: 'https://www.figma.com/api/mcp/asset/7a7a2eff-665f-4e42-93d4-d27961a60449',
+  iterationChain: 'https://www.figma.com/api/mcp/asset/0c1157bf-c5a2-4275-92c9-47258cf91302',
+  logicMap: 'https://www.figma.com/api/mcp/asset/4ac0058e-3b51-4873-889d-ab1648bf65e9',
+  contextPath: 'https://www.figma.com/api/mcp/asset/43004607-c282-4828-be32-d7e7efcb8810',
+  contextSchema: 'https://www.figma.com/api/mcp/asset/ee34fc10-417e-40b6-b437-8ae502228288',
+  skillPattern: 'https://www.figma.com/api/mcp/asset/d5cba248-d338-4720-8bae-b2381f25d4e2',
+  routingTree: 'https://www.figma.com/api/mcp/asset/ae92f730-c0fd-40e5-9c82-b55274dfe08c',
+  endToEnd: 'https://www.figma.com/api/mcp/asset/4ffec97e-5bbd-4af0-8031-2f5c47c2ec78',
+  simpleCase: 'https://www.figma.com/api/mcp/asset/b854d99b-ac15-41d6-a426-dce1275fd05c',
+  simpleResultA: 'https://www.figma.com/api/mcp/asset/08b40dcf-d487-45b8-a534-3734b20aed8a',
+  simpleResultB: 'https://www.figma.com/api/mcp/asset/6a4be23a-f71d-4652-934a-627187f16d8b',
+  simpleScore: 'https://www.figma.com/api/mcp/asset/3c0bdda9-2f92-4320-b223-a9e901bbcef5',
+  simpleResultC: 'https://www.figma.com/api/mcp/asset/39f40253-7923-4b2c-a7d0-fb7fe92d9678',
+  mediumReference: 'https://www.figma.com/api/mcp/asset/554ccd2b-17d0-4c56-b6d0-bf789490eda2',
+  mediumCompareA: 'https://www.figma.com/api/mcp/asset/60b0039f-559d-4056-8e90-faad04e67d80',
+  mediumCompareB: 'https://www.figma.com/api/mcp/asset/fc71b65d-e863-46c3-ad7d-ad7c1db058fb',
+  mediumCompareC: 'https://www.figma.com/api/mcp/asset/75d5e385-97a4-4ea2-9b96-8a8480c7edab',
+  mediumCompareD: 'https://www.figma.com/api/mcp/asset/bf38b053-cd72-4788-95d5-febeee97790e',
+  complexReviewA: 'https://www.figma.com/api/mcp/asset/bc20a33d-2011-469e-9eaa-89f8273226b1',
+  complexReviewB: 'https://www.figma.com/api/mcp/asset/a4ddb320-2703-4602-887b-9371cd5534cb',
 };
 
 const expertise = [
@@ -222,7 +416,7 @@ const awards = [
         text: '面向游戏国际化与多语言本地化协作场景，负责整个产品 UX 设计。系统服务版本内容更新、多语种翻译、语言审核、本地化适配等复杂流程。',
       },
       {
-        title: 'HoYo Design 组件体系与组件配置平台',
+        title: 'HoYo Design 组件体系与配置平台',
         text: '作为设计侧 Owner，负责米哈游基础组件体系 HoYo Design 的 0-1 搭建，并在此基础上完成组件库配置平台设计与上线。支持不同业务平台基于统一组件体系进行风格定制，降低重复设计与研发成本。',
       },
     ],
@@ -233,22 +427,22 @@ const awards = [
     title: '字节跳动',
     label: '[教育线｜B+C端]',
     year: '2022',
-    roleTitle: 'UX 设计师',
+    roleTitle: 'UX设计师',
     badge: '绩效M+ 完成2-1～2-2晋级',
     intro:
       '负责教育资源生产方向业务，包括国内外教育资源生产、消费、结算、产能监控、质量管控，以及面向海外市场的题目快速问答体验。',
     details: [
       {
-        title: '磁极众包 & Solverlance',
+        title: '磁极众包 & Solvelancer',
         items: [
-          '0-1 负责磁极众包（国内）与 Solverlance（海外）Web + H5 端设计。',
+          '0-1负责磁极众包(国内)与Solvelancer(海外)Web + H5 端设计',
           '面向 B 端资源生产流程，设计覆盖任务生产、任务消费、结算、产能监控、质量管理等核心模块。',
           '面向 C 端用户，支持美国、印度市场的题目快速问答场景。',
           '负责产品内动效设计、运营活动设计与关键视觉体验。',
         ],
       },
       {
-        title: 'Seed 组件库 & Brickform 低代码搭建平台',
+        title: 'Seed组件库 & Brickform低代码搭建平台',
         items: [
           '结合教育资源生产业务特性，与前端团队从 0-1 搭建 Seed 组件库。',
           '组件库支持 Web 端搭建后无缝适配 H5 端，提升跨端设计与研发效率。',
@@ -257,7 +451,7 @@ const awards = [
         ],
       },
     ],
-    metaRole: 'UX 设计师',
+    metaRole: 'UX设计师',
     metaYear: '2020.08 – 2022.08',
   },
   {
@@ -293,8 +487,8 @@ const awards = [
   {
     title: '沪江',
     label: '[CCtalk｜C端]',
-    year: '2018',
-    roleTitle: 'UI 设计师',
+    year: '2017',
+    roleTitle: 'UI设计师',
     badge: '',
     intro:
       '负责教育直播产品 CCtalk 移动端与 Web 端 UI 设计，覆盖老师端授课、学员端学习、在线学习社区等核心场景。',
@@ -309,7 +503,7 @@ const awards = [
         ],
       },
     ],
-    metaRole: 'UI 设计师',
+    metaRole: 'UI设计师',
     metaYear: '2017.08 – 2018.08',
   },
 ];
@@ -330,9 +524,9 @@ const efficiencyShowcase = {
     {
       slug: 'ai-skill-design-system',
       kicker: 'AI x Skill',
-      title: '生成符合设计规范页面',
+      title: '设计系统Skill建设',
       image: '/assets/ai-card-visual-2.png',
-      alt: 'AI x Skill 生成符合设计规范页面',
+      alt: 'AI x Skill 设计系统Skill建设',
       description: '基于设计规范、组件规则和页面语义，让 AI Skill 辅助生成更接近真实设计系统的页面初稿。',
     },
     {
@@ -365,15 +559,17 @@ const secondaryContentCards = [
 ];
 
 function getOtherContentCards(currentSlug, limit = 2) {
-  const currentIndex = secondaryContentCards.findIndex((item) => item.slug === currentSlug);
+  const isAiSlug = efficiencyShowcase.practices.some((item) => item.slug === currentSlug);
+  const sourceCards = secondaryContentCards.filter((item) => (isAiSlug ? item.type === 'AI' : item.type !== 'AI'));
+  const currentIndex = sourceCards.findIndex((item) => item.slug === currentSlug);
 
   if (currentIndex === -1) {
-    return secondaryContentCards.slice(0, limit);
+    return sourceCards.slice(0, limit);
   }
 
-  return Array.from({ length: secondaryContentCards.length - 1 }, (_, offset) => {
-    const nextIndex = (currentIndex + offset + 1) % secondaryContentCards.length;
-    return secondaryContentCards[nextIndex];
+  return Array.from({ length: sourceCards.length - 1 }, (_, offset) => {
+    const nextIndex = (currentIndex + offset + 1) % sourceCards.length;
+    return sourceCards[nextIndex];
   }).slice(0, limit);
 }
 
@@ -442,13 +638,155 @@ const workDetails = {
     ],
     headline: 'HoYo & Seed Design 系统搭建',
     copy: [
-      'HoYo Design 组件体系与组件配置平台',
+      'HoYo Design 组件体系与配置平台',
       '作为设计侧 Owner，负责米哈游基础组件体系 HoYo Design 的 0-1 搭建，并在此基础上完成组件库配置平台设计与上线。支持不同业务平台基于统一组件体系进行风格定制，降低重复设计与研发成本。',
-      'Seed 组件库 & Brickform 低代码搭建平台',
+      'Seed组件库 & Brickform低代码搭建平台',
       '结合教育资源生产业务特性，与前端团队从 0-1 搭建 Seed 组件库。组件库支持 Web 端搭建后无缝适配 H5 端，提升跨端设计与研发效率。',
       '基于 Seed 组件库，完成教育资源生产系统低代码搭建平台 Brickform 的设计。支持业务方根据不同生产场景快速搭建资源生产系统。',
     ],
     images: componentLibraryGallery,
+  },
+  'case-delivery': {
+    facts: [
+      ['项目', '磁极 / Solvelancer'],
+      ['角色', 'UX设计师'],
+      ['公司', '字节跳动'],
+      ['项目类型', '教育资产生产平台'],
+      ['端类型', 'Web + Mobile'],
+      ['更新时间', '2026'],
+    ],
+    headline: '" 磁极/solvelancer(众包教育资产生产平台）"',
+    copyBlocks: [
+      { type: 'sectionTitle', text: '🎰 项目背景', tone: 'muted' },
+      {
+        type: 'richParagraphs',
+        items: [
+          [
+            { text: '磁极是一个' },
+            { text: '全球众包平台', tone: 'yellow' },
+            { text: '，使企业及业务方能够将零散的工作外包给分布式劳动力，与用户共创价值。目前可接纳文字、图片、视频等' },
+            { text: '教育内容资产的生产', tone: 'yellow' },
+            { text: '，产品功能允许多端（web & mobile）配置生产流程，包括生产、质检、仲裁、验收等多个生产节点的自由定制。' },
+          ],
+          [
+            {
+              text: '教育资产的积累是非常庞大的工作量；磁极众包的模式使公司及业务方能够利用来自全球自由职业者的集体智慧和技能来进行流水线且标准化业务流程，将耗时的项目分解成更小、更易于管理的微任务，由分散的人力高效、弹性地通过互联网来完成，降低教育资产生产成本。',
+            },
+          ],
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/02.png', alt: '平台任务广场', aspectRatio: '16 / 9' },
+      { type: 'moduleTitle', text: '什么是教育内容资产，在教育业务中会起到什么作用' },
+      {
+        type: 'paragraphs',
+        items: [
+          '设想功能场景：用户使用拍搜软件，查找题目时；会出现2个结果：成功搜出题目；未成功搜出题目\n那么精准快速的匹配对应的正确答案得益于我们丰富的题库积累，通过图书采买的方式积累了大量的题目资源，包括题目、答案、解析、点评，并将他们录入到图库中（主动生产）\n\n而未命中的题目则也会通过算法切题，快速投入到生产线中进行补答案；补解析；补视频等流程，以快速的给用户返回正确结果（被动生产）',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/03.png', alt: '平台题目来源', aspectRatio: '16 / 9' },
+      {
+        type: 'processTable',
+        headers: ['', '生产必要流程', '生产必要流程', '生产必要流程'],
+        rows: [
+          ['1', '资源打包投放', '业务运营（EHI\\EHD\\ENP\\EHIN\\EV）', 'B端后台（PC）'],
+          ['2', '分配生产任务', '平台运营、供应商管理员、工会管理员', 'B端后台（PC）'],
+          ['3', '磁极平台', '生产员、质检员、仲裁员、抽检员', 'C端平台（PC\\Mobile）'],
+          ['4', '实时生产监控', '业务运营、平台运营', 'B端后台（PC）'],
+          ['5', '验收入库', '业务运营', 'B端后台（PC）'],
+        ],
+        highlightRow: 2,
+      },
+      { type: 'sectionTitle', text: '🕹️ 主要设计动作', tone: 'muted' },
+      { type: 'moduleTitle', text: '01 可广泛应用的视觉设计', tocLabel: '01 可广泛应用的视觉设计' },
+      {
+        type: 'paragraphs',
+        items: [
+          '考虑平台国际化的定位；国际化产品的视觉语言应该能够尽可能多的服务更广泛的地区，产品的设计语言应该受到不同文化和社会背景的人的认同喜欢，同时要小心规避国家和地区的文化差异和法律风险。',
+          '起初是想用人物插图来传达平台的品牌和调性，但插画内容中，\n1.人种（黄白黑种人，在国外人种在图中占的数量比例都要需要注意）、\n2.装扮（如阿拉伯伊朗印度等地区女性角色要有头巾、印度市场锡克教男性要有头巾），\n为了避免这些局限因素和文化风险，我后面优化了风格，用3d的风格作为平台的主要的视觉传达手段，模型的搭建与任务场景一致，形成联动关系，增加视觉上的z轴效果，使平台具有科技、自由、灵活的感觉',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/04.png', alt: '可广泛应用的视觉设计', aspectRatio: '16 / 9' },
+      { type: 'moduleTitle', text: '02 打造简洁高效、快速上手页面设计', tocLabel: '02 简洁高效、快速上手' },
+      { type: 'subTitle', text: '1.任务页要有明确一致的设计语言，' },
+      {
+        type: 'paragraphs',
+        items: [
+          '尽量通过简洁高效的框架结构，保持所有任务页设计结构的一致性，从而降低用户的认知负担，提升工作效率，即便是做不同任务类型或角色时，也能快速上手，完成任务，拿到奖励',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/10.png', alt: '简洁高效、快速上手页面设计', aspectRatio: '1920 / 9497' },
+      {
+        type: 'paragraphs',
+        items: [
+          '通过清晰明确的信息结构布局和统一的任务卡操作逻辑、减轻了用户切换任务和角色时的上手难度，提升了工作效率，减轻了视觉负担。也为设计开发能总结规律、抽象通用能力的工作打下基础众包任务卡整理',
+          '是否能够高效的完成任务，并获得奖金是平台留住用户并且能保持黏性的根本，但平台任务页常常会充斥着大量繁杂枯燥的信息内容、用户要在平台上做大量需要集中注意的工作，这要求平台要有统一整体的设计语言和规范清晰的视觉层级。',
+        ],
+      },
+      { type: 'subTitle', text: '2.简化复杂操作，增加辅助工具' },
+      {
+        type: 'paragraphs',
+        items: [
+          '我们观察和调研了用户完成任务时的操作习惯和步骤，明确了优化方向，通过增加功能和简化步骤的方式来减轻用户负担；提升工作效率',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/11.png', alt: '提效辅助工具', aspectRatio: '1920 / 3041' },
+      { type: 'moduleTitle', text: 'Result（取得了那些成果？哪些可量化）', tocLabel: '任务卡设计成效' },
+      {
+        type: 'paragraphs',
+        items: [
+          '我们针对任务卡的满意度情况；对146位印度的自由职业者做了调查：有80%的用户满意任务卡的操作流程和页面设计，反馈的词云中频率最高频的正向词汇是“Easy to use”，提效设计使用率高达91%。任务平均超时率从54.9%降低到27.3%',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/12.png', alt: '任务卡设计成效', aspectRatio: '1920 / 1387' },
+      { type: 'moduleTitle', text: '02 设计研发全链路提效降本', tocLabel: '02 设计研发提效降本' },
+      {
+        type: 'paragraphs',
+        items: [
+          '我们的业务方有：学习灯、大力辅导、Gauthmath、Snapsolve、K12精品题库.......',
+          '业务方：设计开发流程长、不能灵活定制的配置不同业务所需的产出。不能快速调整生产策略和定价\n设计开发：尽全力做到快速响应业务而且重复工作特别多。尽管大家已经超负荷工作，但还是不及业务方预期。',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/05.png', alt: '业务方与设计研发诉求', aspectRatio: '16 / 9' },
+      {
+        type: 'paragraphs',
+        items: [
+          'Task：\n1.使磁极众包平台可快速响应不同业务的定制生产需求（提效率）\n2.设计研发可低成本快速高质量的完成需求，（降成本）\nAction：设计与研发一起整合资源、尝试抽象通用能力的基础上降低设计研发成本',
+        ],
+      },
+      { type: 'subTitle', text: '1.搭建可web和h5映射的seed组件库' },
+      {
+        type: 'paragraphs',
+        items: [
+          '平台需要同时满足web和h5端，所以每一个组件的设计上要能够关联映射，由此推导出的开发方案支持开发一遍代码，就实现多端支持，设计研发不需要再同时维护 2 个端，以提升众包平台整体响应效率',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/06.png', alt: 'Seed 组件库双端映射', aspectRatio: '1920 / 4123' },
+      { type: 'subTitle', text: '2.寻找共性：框架式搭建任务卡' },
+      {
+        type: 'paragraphs',
+        items: [
+          '第一阶段：针对平台的生产任务卡抽象出基础的小组件，共建seed UI组件库（包括基础组件业务组件）\n第二阶段：由小组件拼装成大的操作区块；如书页预览区、截图操作区、视频生产区等\n第三阶段：开发可将监控埋点、 屏幕适配规则、多语言适配等应用框架进行封装，形成下面几个布局规则',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/07.png', alt: '框架式搭建任务卡', aspectRatio: '1920 / 2993' },
+      { type: 'subTitle', text: '3..实现业务方自主自由配置' },
+      {
+        type: 'paragraphs',
+        items: [
+          '通过以上2步的铺垫，进一步实现业务方的自主任务卡配置，我们b端搭建brickform可视化的配置系统，操作简单便利，业务方可以根据自己业务的实际情况调整模版；功能模块、生产内容等，上线后平台可以快速灵活响应业务方众口难调、变化莫测的教育内容生产需求。设计和研发之后只需要继续查缺补漏来不断完善设计资源库即可',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/08.png', alt: '业务方自主配置', aspectRatio: '1920 / 3006' },
+      { type: 'moduleTitle', text: 'Result（取得了那些成果？哪些可量化）', tocLabel: '平台化搭建成效' },
+      {
+        type: 'paragraphs',
+        items: [
+          '通过以上几个行动，我们5个月的时间里完成了5条业务产线、46个生产功能的迁移，帮助业务实现了70w+的产能目标，研发设计提升效率60%以上（基于任务卡上线所耗时间和投入人力与之前相比）',
+        ],
+      },
+      { type: 'image', src: '/assets/magnetic-crowd/09.png', alt: '磁极与 Solvelancer 项目成果汇总', aspectRatio: '1920 / 2646' },
+    ],
+    images: [],
   },
   'ai-ae-automation': {
     facts: [
@@ -680,6 +1018,478 @@ const workDetails = {
     ],
     images: [],
   },
+  'ai-skill-design-system': {
+    facts: [
+      ['项目', '设计系统Skill建设'],
+      ['角色', '规范整理+Skill设计'],
+      ['公司', '米哈游'],
+      ['项目状态', '已上线，优化中'],
+      ['迭代周期', 'v1.0 2026.04-2026.05'],
+      ['更新时间', '2026'],
+    ],
+    headline: '" 设计系统Skill建设 "',
+    copyBlocks: [
+      { type: 'sectionTitle', text: '🎰 项目背景：从“AI 生成 UI”到“AI 生成符合规范的设计稿”', tocLabel: '🎰 从 AI 生成 UI 到规范设计稿', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: [
+          '随着 AI 逐渐进入设计生产流程，单纯让 AI 生成界面已经不是难点。真正的挑战在于：AI 生成的结果是否符合产品设计规范、是否能复用现有组件、是否能保持团队设计语言一致，并最终具备交付研发的可用性。',
+          '在米线平台的设计系统建设中，我参与探索并搭建了 miline-design-system-skill。它的目标不是让 AI 随机生成“看起来差不多”的 UI，而是让 AI 基于米线组件体系、页面规则、样式 Token 和业务场景，生成默认符合设计规范的高保真设计稿。',
+        ],
+      },
+      {
+        type: 'callout',
+        tone: 'info',
+        text: '把AI纳入设计系统的一部分，希望能成为设计生产链路中的节点之一。',
+      },
+      { type: 'sectionTitle', text: '🎲 核心问题：AI 生成太随机', tocLabel: '🎲 AI 生成结果太随机', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: ['在早期探索中，我们发现 AI 直接生成设计稿时，容易出现几个问题：'],
+      },
+      {
+        type: 'orderedPoints',
+        items: [
+          [
+            '只理解表层样式，不理解组件使用场景',
+            'AI可以模仿按钮、卡片、表格的外观，但并不一定知道在什么业务场景下应该使用哪种组件状态、哪种布局密度、哪种操作层级；只能通过大量的自然语言，描述非常基础的样式，效率非常低。',
+          ],
+          [
+            '生成结果缺少设计系统约束',
+            '如果没有明确的组件规则和页面规范，AI 很容易自由发挥，生成不符合团队规范的样式，导致后续仍然需要设计师大量返工。',
+          ],
+        ],
+      },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-ai-skill-pair',
+        columns: '479fr 384fr',
+        images: [
+          { src: aiSkillFigmaAssets.constraintLight, alt: '米线页面层级规范示意一', aspectRatio: '479 / 193' },
+          { src: aiSkillFigmaAssets.constraintDark, alt: '米线页面层级规范示意二', aspectRatio: '384 / 194' },
+        ],
+      },
+      {
+        type: 'paragraphs',
+        items: [
+          '以米线场景为例，页面通过颜色明暗处理来做信息层级的展示，需要严格按照设计规范和标准。缺少约束的话，很难生成符合预期的页面。',
+          '全自动化 & 半自动化：考虑中间导出环节还需要人工确认，例如卡面和特效结合效果等，所以采用了核心环节自动化的方式来设计 AE 插件。',
+        ],
+      },
+      { type: 'sectionTitle', text: '🧑‍🎨 设计策略：把设计系统转化为 AI 可执行的 Skill', tocLabel: '🧑‍🎨 设计系统转化为 Skill', tone: 'muted' },
+      {
+        type: 'richParagraphs',
+        items: [
+          [
+            { text: '我的判断是：设计系统不能只停留在“给人看的规范文档”，还需要进一步转化为 ' },
+            { text: '“AI 能理解、能调用、能执行的规则系统”', tone: 'blue' },
+            { text: '。' },
+          ],
+          [{ text: '因此，miline-design-system-skill 的建设重点不是简单描述组件长什么样，而是围绕两个层级展开：' }],
+        ],
+      },
+      { type: 'moduleTitle', text: '01 组件 Skill：解决“什么时候用什么组件”', tocLabel: '01 组件 Skill：组件使用场景' },
+      {
+        type: 'paragraphs',
+        items: [
+          '组件 Skill 不只是把组件样式说明转成文字规则，而是要帮助 AI 理解组件背后的使用条件。',
+          '什么场景使用主按钮，什么场景使用次按钮\n表格在什么情况下使用紧凑布局，什么情况下需要信息分组\n表单字段过多时如何组织层级\n弹窗、抽屉、页面跳转分别适合什么任务复杂度\n状态标签、风险提示、空状态应该如何表达',
+          '组件 Skill 的核心价值，是让 AI 不仅知道“组件是什么”，更知道“组件应该在什么场景下被正确使用”。',
+        ],
+      },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-ai-skill-pair',
+        columns: '350fr 299fr',
+        images: [
+          { src: aiSkillFigmaAssets.componentSkillA, alt: '组件 Skill 规则示意一', aspectRatio: '350 / 293' },
+          { src: aiSkillFigmaAssets.componentSkillB, alt: '组件 Skill 规则示意二', aspectRatio: '299 / 291' },
+        ],
+      },
+      { type: 'moduleTitle', text: '02 设计规范 Skill：解决“页面整体应该如何组织”', tocLabel: '02 设计规范 Skill：页面组织' },
+      {
+        type: 'paragraphs',
+        items: [
+          '设计规范 Skill 更偏全局视角，关注页面结构、功能层级、视觉层级和体验一致性。',
+          '它需要告诉 AI：\n页面整体布局应该如何组织\n信息区、操作区、反馈区如何划分\n不同页面类型应该采用什么结构\n功能层级与视觉层级如何对应\n哪些设计模式可以复用，哪些样式不能自由创造',
+          '这部分的重点，是把设计师的经验判断沉淀成可被 AI 执行的页面设计规则。',
+        ],
+      },
+      {
+        type: 'orderedPoints',
+        items: [
+          ['page-color-hierarchy', '（页面层级）：关注全局页面结构的层次（NavbarBar、Navsidebar、Content 等大区域之间的视觉层级）'],
+          ['block-color-hierarchy', '（区块层级，本技能）：关注内容区域内部的容器嵌套关系（表单区、表格区、子面板、编辑区等的嵌套层次）'],
+          ['page-layout-design', '关注布局结构和间距（组件尺寸、位置、间距）'],
+        ],
+      },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-ai-skill-pair',
+        columns: '492fr 371fr',
+        images: [
+          { src: aiSkillFigmaAssets.pageSkillA, alt: '页面层级规则 Skill 示例一', aspectRatio: '492 / 404' },
+          { src: aiSkillFigmaAssets.pageSkillB, alt: '页面层级规则 Skill 示例二', aspectRatio: '371 / 360' },
+        ],
+      },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-ai-skill-pair',
+        columns: '493fr 371fr',
+        images: [
+          { src: aiSkillFigmaAssets.blockSkillA, alt: '区块层级规则 Skill 示例一', aspectRatio: '493 / 360' },
+          { src: aiSkillFigmaAssets.blockSkillB, alt: '区块层级规则 Skill 示例二', aspectRatio: '371 / 360' },
+        ],
+      },
+      { type: 'sectionTitle', text: '🔩 协作机制：通过 Git 管理 Skill 的共建与迭代', tocLabel: '🔩 Git 管理 Skill 共建迭代', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: [
+          'Design System Skill 必然不是一次性产物，而是一个持续更新的团队资产。',
+          '因此，我们采用 Git 进行多人协同和版本管理，让 Skill 的更新过程具备可追踪、可评审、可回滚的机制。',
+          '这种方式让设计规范的更新不再依赖口头同步或零散文档，而是像代码一样被管理。',
+          '每一次组件规则调整、页面模板补充、Token 更新、使用场景修正，都可以通过 Git 记录下来。团队成员可以清楚看到 Skill 的变化原因、修改内容和版本历史。',
+        ],
+      },
+      { type: 'image', src: aiSkillFigmaAssets.gitBanner, alt: 'Git 管理 Skill 共建流程', aspectRatio: '920 / 177' },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-ai-skill-git-pair',
+        columns: '202fr 198fr 385fr',
+        images: [
+          { src: aiSkillFigmaAssets.gitMobileA, alt: 'Skill 规则移动端示例一', aspectRatio: '202 / 535' },
+          { src: aiSkillFigmaAssets.gitMobileB, alt: 'Skill 规则移动端示例二', aspectRatio: '198 / 535' },
+          { src: aiSkillFigmaAssets.gitRules, alt: 'Skill 规则协作示例', aspectRatio: '385 / 427' },
+        ],
+      },
+      {
+        type: 'callout',
+        tone: 'warning',
+        text: '这对设计系统建设非常关键：因为 AI 生成质量依赖规则质量，而规则质量依赖持续维护和团队共建。',
+      },
+      { type: 'sectionTitle', text: '⚒️ 使用场景：让 AI 进入真实设计生产链路', tocLabel: '⚒️ AI 进入真实设计生产链路', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: ['miline-design-system-skill 的价值，不只是服务设计师个人提效，而是覆盖设计、产品、研发和游戏项目组的多角色协作场景。'],
+      },
+      { type: 'moduleTitle', text: '场景一：设计师前期快速生成高保真方案', tocLabel: '场景一：设计师快速生成方案' },
+      {
+        type: 'paragraphs',
+        items: [
+          '在方案讨论早期，设计师可以基于 Skill 快速生成符合米线设计规范的高保真方案，用于内部沟通、方向验证和方案对齐。',
+          '过去设计师需要先手动搭建基础结构、寻找组件、调整规范细节；现在 AI 可以先完成一部分结构化搭建工作，设计师把更多精力放在业务判断、信息架构和体验取舍上。',
+        ],
+      },
+      { type: 'image', src: aiSkillFigmaAssets.scenarioDesigner, alt: '设计师快速生成高保真方案示例', aspectRatio: '4096 / 1062' },
+      { type: 'moduleTitle', text: '场景二：产品自主生成规范化设计稿', tocLabel: '场景二：产品生成规范设计稿' },
+      {
+        type: 'paragraphs',
+        items: [
+          '产品经理在表达需求时，往往需要通过原型或草图说明想法。但传统原型与最终设计稿之间存在较大差距，容易产生理解偏差。',
+          '通过 miline-design-system-skill，产品可以基于需求描述生成更接近真实设计规范的页面初稿，帮助产品、设计和研发更快对齐功能形态，减少早期沟通成本。',
+        ],
+      },
+      { type: 'image', src: aiSkillFigmaAssets.scenarioProduct, alt: '产品自主生成规范化设计稿示例', aspectRatio: '1280 / 424' },
+      { type: 'moduleTitle', text: '场景三：游戏项目组自主开发小工具并融入米线', tocLabel: '场景三：项目组小工具融入米线' },
+      {
+        type: 'paragraphs',
+        items: [
+          '游戏项目组经常会基于自身业务开发小工具，例如数据处理、任务管理、流程辅助或内容生产工具。',
+          '如果每个小工具都自由设计，长期会造成体验割裂、维护成本上升。通过 Skill，项目组即使自行生成或开发工具，也能默认遵守米线设计规范，使工具自然融入平台生态。',
+          '这让设计系统的价值从“规范约束”进一步升级为“平台级设计基础设施”。',
+        ],
+      },
+      { type: 'image', src: aiSkillFigmaAssets.scenarioGameTeam, alt: '游戏项目组小工具融入米线示例', aspectRatio: '1280 / 722' },
+      { type: 'sectionTitle', text: '⚒️ 设计价值：不是使用 AI，而是设计 AI 的工作边界', tocLabel: '⚒️ 设计 AI 的工作边界', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: ['在这个项目中，我的价值不只是探索 AI 工具，而是站在设计系统建设者的角度，重新定义 AI 应该如何参与设计流程。'],
+      },
+      { type: 'moduleTitle', text: '1）把隐性的设计经验显性化', tocLabel: '1）隐性设计经验显性化' },
+      {
+        type: 'paragraphs',
+        items: [
+          '很多设计判断过去存在于设计师经验中，例如“这个场景为什么用抽屉而不是弹窗”“为什么这个按钮不能放在主操作区”“为什么这个页面需要先展示数据概览再进入明细”。',
+          '通过 Skill 建设，这些经验被转化为明确规则，让 AI、产品和其他设计师都可以复用。',
+        ],
+      },
+      { type: 'moduleTitle', text: '2）把静态规范转化为可执行规则', tocLabel: '2）静态规范转为执行规则' },
+      {
+        type: 'paragraphs',
+        items: [
+          '传统设计规范通常是静态文档，更多用于查阅。',
+          '而 Skill 的建设目标，是让规范变成 AI 可以理解和执行的生成条件。',
+          '这让设计系统从“设计资产”进一步变成“生产力工具”。',
+        ],
+      },
+      { type: 'moduleTitle', text: '3）把 AI 生成从不可控变成可控', tocLabel: '3）AI 生成从不可控到可控' },
+      {
+        type: 'paragraphs',
+        items: [
+          'AI 最大的问题不是不会生成，而是生成结果不可预测。',
+          '通过组件 Skill、设计规范 Skill 和 Git 协作机制，为 AI 设置了明确边界，让它在统一设计语言、组件体系和页面规则中生成内容。',
+          '这使 AI 生成结果更接近真实项目要求，也降低了后续设计修正和研发沟通成本。',
+        ],
+      },
+      { type: 'sectionTitle', text: '🤯 阶段性边界：AI Skill 当前更适合规范化生成，而不是完整产品迭代', tocLabel: '🤯 Skill 更适合规范化生成', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: [
+          '在 miline-design-system-skill 的探索过程中，我也意识到这套工作流存在明确的阶段性边界。',
+          '它的价值并不是让 AI 直接替代设计师完成完整产品设计，也不能真正成为产品版本迭代中的正式设计环节。',
+          '当前这套方法更适合解决的是：在组件使用、基础样式、页面布局和设计规范层面，对 AI 生成结果进行约束，让输出结果在视觉语言和组件体系上更接近米线平台规范。',
+          '它能让 AI 生成结果从“完全不可控”变成“基础规范可控”，但还不能让 AI 稳定产出可以直接进入真实版本迭代的复杂业务方案。',
+        ],
+      },
+      { type: 'moduleTitle', text: '1）当前只能控制“基础样式”，不能完整控制“复杂业务逻辑”', tocLabel: '1）基础样式可控，业务逻辑有限' },
+      {
+        type: 'paragraphs',
+        items: [
+          'miline-design-system-skill 可以有效约束 AI 使用正确的组件、Token、布局方式和基础视觉层级。',
+          '例如按钮层级、表格样式、表单组织、弹窗结构、页面间距、颜色使用等基础规范，可以通过 Skill 得到一定程度的控制。但对于复杂业务页面来说，仅仅符合组件规范是不够的。',
+          '真实产品页面往往存在大量业务耦合关系，例如：页面与上下游流程的关系、不同角色的权限差异、多状态之间的流转逻辑、数据字段之间的依赖关系、操作前后的反馈链路、异常情况与边界状态。',
+          '这些内容很难只靠组件 Skill 和设计规范 Skill 完整覆盖。因此，当前 Skill 更像是帮助 AI 生成一个“规范化的界面起点”，而不是直接生成一个完整、严谨、可上线的产品设计方案。',
+        ],
+      },
+      { type: 'moduleTitle', text: '2）对高耦合页面的生产力有限，更多是“参考”和“启发”', tocLabel: '2）高耦合页面更多是参考' },
+      {
+        type: 'paragraphs',
+        items: [
+          '对于结构简单、业务逻辑相对独立的页面，AI Skill 可以提供明显帮助。例如简单配置页、工具页、表单页、基础列表页、轻量数据页面等，AI 可以快速生成一个符合设计系统的初稿。',
+          '但对于耦合度很高的复杂页面，它的效果会明显下降。例如工作流配置、任务流转、权限管理、数据分发、复杂审批、跨角色协作等页面，设计难点并不在于“页面长什么样”，而在于业务规则如何被表达、用户操作路径是否合理、不同角色之间如何协同、状态变化是否完整、异常情况是否被覆盖、信息优先级是否符合真实使用场景、页面是否能支撑长期版本演进。',
+          '这些判断需要设计师基于业务上下文进行推理，而 AI 在缺少完整上下文的情况下，很难生成真正有产品思考的方案。因此，在复杂页面中，AI 生成结果更适合作为讨论材料、灵感参考或方案发散，而不能直接作为最终设计稿进入交付。',
+        ],
+      },
+      { type: 'moduleTitle', text: '3）缺少完整上下文时，AI 只能生成“单点功能”，无法生成“系统方案”', tocLabel: '3）缺少上下文只能生成单点功能' },
+      {
+        type: 'paragraphs',
+        items: [
+          '当前工作流还有一个关键限制：AI 生成通常是围绕单个页面或单个功能展开的。',
+          '它可以根据输入生成一个页面结构，也可以根据组件规则生成一个相对规范的界面。但如果没有完整的产品上下文，它很难判断这个页面在整个系统中的位置。',
+          '例如它不一定知道：这个功能从哪里进入、用户完成任务前后分别发生什么、当前页面和其他模块之间有什么数据关系、哪些字段来自上游，哪些操作影响下游、当前功能在整个协作流程中承担什么角色、这个页面是否会影响其他角色的工作方式。',
+          '缺少这些上下文时，AI 生成的内容往往是“局部正确”的，但未必是“系统正确”的。这也是为什么当前方法不能简单理解为完整设计自动化。',
+          '它更适合承担局部页面生成、方案表达、样式统一和初期讨论辅助，而不是替代设计师完成完整的产品逻辑推导。',
+        ],
+      },
+    ],
+    images: [],
+  },
+  'ai-design-context': {
+    facts: [
+      ['项目', 'AI通过Design Context理解功能逻辑'],
+      ['角色', '需求整理+Design Context设计'],
+      ['公司', '米哈游'],
+      ['项目状态', '已上线，优化中'],
+      ['迭代周期', 'v1.0 2026.05-2026.07'],
+      ['更新时间', '2026'],
+    ],
+    headline: '"AI x Design Context理解功能逻辑生成设计"',
+    copyBlocks: [
+      { type: 'sectionTitle', text: '🎰 核心目标', tone: 'muted' },
+      {
+        type: 'callout',
+        tone: 'blue',
+        icon: '💡',
+        text: '构建设计侧上下文与规则体系，使 AI 能基于 PRD 稳定生成符合现有产品逻辑与设计规范的 Figma 页面',
+      },
+      { type: 'sectionTitle', text: '🖇️ 目标链路', tone: 'muted' },
+      {
+        type: 'paragraphs',
+        items: ['功能模块A梳理：1.0PRD + 1.0 Design→ Design Context'],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.targetChain, alt: '功能模块 Design Context 梳理链路', aspectRatio: '2334 / 686' },
+      {
+        type: 'richParagraphs',
+        items: [
+          [
+            { text: '功能模块A迭代：1.0 Design Context →' },
+            { text: '2.0PRD + 2.0 Design → Done→2.0 Design Context', tone: 'blue' },
+          ],
+        ],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.iterationChain, alt: '功能模块 Design Context 迭代链路', aspectRatio: '3238 / 716' },
+      { type: 'sectionTitle', text: '🧠 逻辑梳理', tone: 'muted' },
+      { type: 'image', src: aiDesignContextFigmaAssets.logicMap, alt: 'Design Context 与 Design Skill 逻辑关系', aspectRatio: '2376 / 532' },
+      { type: 'moduleTitle', text: '明确两个概念' },
+      {
+        type: 'richParagraphs',
+        className: 'detail-copy-concept-list',
+        items: [
+          [
+            { text: 'Design Context：' },
+            { text: '继承能力', tone: 'blue' },
+          ],
+          [{ text: '提供功能区块级别上下文参考，保证任何功能的生成不是从0开始，有页面复用可调起复用' }],
+          [{ text: '面向功能模块的设计上下文输入，提供该模块的最新页面样式、结构模式、交互链路、业务语义与版本继承关系，使 AI 的生成建立在现有产品基础上，而不是从零开始）' }],
+          [
+            { text: 'Design Skill：' },
+            { text: '约束能力', tone: 'yellow' },
+          ],
+          [{ text: '提供底层样式的规范，保证页面一致性，在没有参考和复用页面的场景下，也能生成符合标准的设计页面' }],
+          [{ text: '面向页面生成的设计规则能力，提供基础样式、组件约束、页面模板与状态规则，确保 AI 生成结果在结构、样式和交互上符合设计系统要求' }],
+        ],
+      },
+      { type: 'subTitle', text: 'Design Context建设路径' },
+      {
+        type: 'paragraphs',
+        items: ['在 skills/miline-figma/references/ 下新增 contexts/ 目录，按功能模块维护：'],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.contextPath, alt: 'Design Context 文件目录结构', aspectRatio: '920 / 205' },
+      {
+        type: 'paragraphs',
+        items: [
+          '每个 Context 文件遵循固定 Schema（基于已有的 design-context-temple.md 扩展）：',
+          '数据来源：可以通过 miline-figma 的 design-context 命令从 Figma 自动提取结构部分，人工补充业务语义和设计决策记录。',
+        ],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.contextSchema, alt: 'Design Context Schema 示例', aspectRatio: '916 / 685' },
+      { type: 'subTitle', text: 'Design Skill 控制基础样式' },
+      {
+        type: 'paragraphs',
+        items: ['不需要新建 Skill，而是在现有 miline-design-system-skill 的 patterns 层补充正向生成决策树。'],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.skillPattern, alt: 'Design Skill patterns 层结构', aspectRatio: '920 / 182' },
+      { type: 'paragraphs', items: ['generation-routing.md核心内容是一棵决策树：'] },
+      { type: 'image', src: aiDesignContextFigmaAssets.routingTree, alt: 'generation-routing 决策树', aspectRatio: '920 / 261' },
+      { type: 'paragraphs', items: ['端到端生成链路'] },
+      { type: 'image', src: aiDesignContextFigmaAssets.endToEnd, alt: '端到端生成链路', aspectRatio: '920 / 422' },
+      { type: 'sectionTitle', text: '🤹🏻 上手试试行不行', tone: 'muted' },
+      { type: 'moduleTitle', text: '简单低复杂需求' },
+      {
+        type: 'richParagraphs',
+        items: [[{ text: '→模块独立，页面简单、逻辑清晰、prd简单、历史背景少', tone: 'blue' }]],
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.simpleCase, alt: '简单低复杂需求示例', aspectRatio: '1280 / 441' },
+      { type: 'minorTitle', text: '1.整理样式+功能逻辑' },
+      {
+        type: 'paragraphs',
+        items: [
+          '由于这个功能本身，在3.10版本内做为支持性功能而上马的，所以在整理功能时，我把产品功能逻辑和设计样式放在一起展示，希望可以增加AI读取Figma MCP时的准确性',
+          '该内容以 miline-design-context 文件的形式存在，后续所有功能的上下文都可以存在这个结构下',
+        ],
+      },
+      { type: 'markdownPanel', src: '/assets/version-overview01.md', title: 'Version Overview Module' },
+      {
+        type: 'richParagraphs',
+        items: [
+          [{ text: '优点：内容是可控的，可修改和维护的，所有不符合产品设计预期的都能控制', tone: 'green' }],
+          [{ text: '缺点 ：整理成本高，米线历史内容太多太复杂时间周期长', tone: 'yellow' }],
+        ],
+      },
+      { type: 'minorTitle', text: '2.新增需求+Design Context' },
+      {
+        type: 'paragraphs',
+        items: ['一句话需求：在版本总览内增加全局搜索，可以通过关键字检索到所有版本内容'],
+      },
+      {
+        type: 'callout',
+        tone: 'blue',
+        icon: '🤔',
+        text: '这种功能简单的需求，我的目标预期流程是：产品直接对话/简单PRD-AI参考Design Context-直接生成内容-交付',
+      },
+      { type: 'paragraphs', items: ['那么带着这个目标，评估下Ai直出的表现'] },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-design-context-pair',
+        columns: '438fr 315fr',
+        images: [
+          { src: aiDesignContextFigmaAssets.simpleResultA, alt: '简单需求 AI 生成结果一', aspectRatio: '438 / 370' },
+          { src: aiDesignContextFigmaAssets.simpleResultB, alt: '简单需求 AI 生成结果二', aspectRatio: '315 / 413' },
+        ],
+      },
+      { type: 'minorTitle', text: '3.效果评估' },
+      {
+        type: 'callout',
+        tone: 'blue',
+        icon: '🤔',
+        text: '页面还原度  整体还原度70%',
+      },
+      { type: 'image', src: aiDesignContextFigmaAssets.simpleScore, alt: '简单需求页面还原度评估', aspectRatio: '920 / 207' },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-design-context-pair',
+        columns: '438fr 418fr',
+        images: [
+          { src: aiDesignContextFigmaAssets.simpleResultA, alt: '简单需求原始参考', aspectRatio: '438 / 370' },
+          { src: aiDesignContextFigmaAssets.simpleResultC, alt: '简单需求 AI 还原结果', aspectRatio: '418 / 371' },
+        ],
+      },
+      { type: 'moduleTitle', text: '中等复杂需求' },
+      {
+        type: 'callout',
+        tone: 'blue',
+        icon: '🤔',
+        text: '填入1.0功能PRD(历史)+1.0功能 Figma,生成该功能区块的Design Context。全部可控\n用_context-template 控制Design Context 内容',
+      },
+      {
+        type: 'imagePanelPair',
+        className: 'detail-copy-design-context-pair',
+        columns: '236fr 654fr',
+        image: { src: aiDesignContextFigmaAssets.mediumReference, alt: '中等复杂需求参考页面', aspectRatio: '236 / 382' },
+        panelMarkdown: { src: '/assets/design-context-template.md', title: 'Design Context Template' },
+      },
+      { type: 'minorTitle', text: '1.功能prd输入<1.0人员自动流转>+功能设计稿 → 历史逻辑输入' },
+      { type: 'minorTitle', text: '2.[Design Context: 该模块的 context.md] → 继承现有结构、样式、交互链路' },
+      { type: 'markdownPanel', src: '/assets/personnel-auto-transfer-context.md', title: 'Personnel Auto Transfer Context' },
+      { type: 'minorTitle', text: '3.[Design Skill: patterns/*.md + components/*.md+Token/*.md ] → 按规范约束执行裁决' },
+      { type: 'minorTitle', text: '4.投喂新版本prd<2.0人员自动流转>生成可交互预览页面' },
+      {
+        type: 'orderedPoints',
+        items: [
+          ['基础样式“Design Skill”控制', '样式、颜色层级、结构基本正确，button select未使用组件'],
+          ['规范命中', 'Skills内明确规范过的Dialog\\层级规范\\层级颜色规范等正确'],
+          ['设计结果', '新生成的内容的设计合理，样式符合PRD和设计交付要求'],
+        ],
+      },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-design-context-pair',
+        columns: '453fr 411fr',
+        images: [
+          { src: aiDesignContextFigmaAssets.mediumCompareA, alt: '中等复杂需求生成对比一', aspectRatio: '453 / 374' },
+          { src: aiDesignContextFigmaAssets.mediumCompareB, alt: '中等复杂需求生成对比二', aspectRatio: '411 / 374' },
+        ],
+      },
+      { type: 'paragraphs', items: ['2.0 和 1.0 设计对比，新功能增加“内包”自定权限配置'] },
+      {
+        type: 'imagePair',
+        className: 'detail-copy-design-context-pair',
+        columns: '332fr 532fr',
+        images: [
+          { src: aiDesignContextFigmaAssets.mediumCompareC, alt: '中等复杂需求 2.0 对比一', aspectRatio: '332 / 398' },
+          { src: aiDesignContextFigmaAssets.mediumCompareD, alt: '中等复杂需求 2.0 对比二', aspectRatio: '532 / 317' },
+        ],
+      },
+      {
+        type: 'callout',
+        tone: 'blue',
+        icon: '🤔',
+        text: '可以应用于中等复杂的功能模块，方法可行可推进',
+      },
+      { type: 'moduleTitle', text: '特别复杂需求' },
+      {
+        type: 'callout',
+        tone: 'warning',
+        icon: '🤔',
+        text: '3.2.4集中对审阅需求模块进行功能优化，所以尝试Design Context方法完成需求\n审阅功能属于巨大复杂功能模块，竞品如“分秒帧”“RV”都是作为独立产品存在',
+      },
+      {
+        type: 'richParagraphs',
+        items: [
+          [
+            { text: '审阅功能本身就包含超级长上下文，' },
+            { text: '产品PRD逻辑+设计交互逻辑', tone: 'yellow' },
+            { text: '直接会顶爆Design Context，过程中尝试拆分审阅功能：审阅播放器、工具栏、对比模式、聚焦模式。还是不行，AI经常幻觉失忆，稍微复杂一点的功能需求生成的figma惨不忍睹。（或许可能拆的更细一点的Design Context能解决，整理成本非常高）' },
+          ],
+          [{ text: '而类似“审阅”这种大型复杂功能模块，米线至少有10个以上，他们之间互相咬合功能嵌套会导致Design Context成本很大，所以目前评估这套流程卡在了如何合理的方式让Ai理解我们米线功能的上下文这个点上' }],
+        ],
+      },
+      { type: 'minorTitle', text: '2.[Design Context: 该模块的 context.md] → 继承现有结构、样式、交互链路' },
+      { type: 'image', src: aiDesignContextFigmaAssets.complexReviewA, alt: '复杂审阅需求 Design Context 生成结果一', aspectRatio: '1280 / 745' },
+      { type: 'image', src: aiDesignContextFigmaAssets.complexReviewB, alt: '复杂审阅需求 Design Context 生成结果二', aspectRatio: '1280 / 301' },
+    ],
+    images: [],
+  },
   'astranova-mission-identity': {
     facts: [
       ['Project', '米线游戏制作管理'],
@@ -843,14 +1653,16 @@ const workDetails = {
 };
 
 const navItems = [
-  { label: '核心项目 [4]', href: '/#works' },
-  { label: 'AI [3]', href: '/#ai-exploration' },
-  { label: '关于', href: '/#about' },
-  { label: '履历', href: '/#resume' },
-  { label: '联系', href: '/#contact' },
+  { label: '核心项目', href: '/#works', sectionId: 'works' },
+  { label: 'AI', href: '/#ai-exploration', sectionId: 'ai-exploration' },
+  { label: '信息', href: '/#about', sectionId: 'about' },
+  { label: '履历', href: '/#resume', sectionId: 'resume' },
+  { label: '灵感', href: '/#inspiration', sectionId: 'inspiration' },
+  { label: '联系', href: '/#contact', sectionId: 'contact' },
 ];
 const heroTitle = 'UX & Motion Designer';
 const themeStorageKey = 'icezhou-portfolio-theme';
+const scrollStoragePrefix = 'icezhou-portfolio-scroll:';
 
 const getInitialTheme = () => {
   const savedTheme = window.localStorage.getItem(themeStorageKey);
@@ -874,6 +1686,18 @@ const routeTransitionTiming = {
 const getRoutePath = (route) => `${route.pathname}${route.search}`;
 
 const getRouteUrl = (route) => `${route.pathname}${route.search}${route.hash}`;
+
+const getRouteScrollKey = (route) => `${scrollStoragePrefix}${getRouteUrl(route)}`;
+
+const getSavedRouteScroll = (route) => {
+  const saved = window.sessionStorage.getItem(getRouteScrollKey(route));
+  const value = saved === null ? Number.NaN : Number.parseFloat(saved);
+  return Number.isFinite(value) ? value : null;
+};
+
+const saveRouteScroll = (route, scrollY = window.scrollY) => {
+  window.sessionStorage.setItem(getRouteScrollKey(route), String(Math.max(0, Math.round(scrollY))));
+};
 
 const getTransitionDirection = (fromRoute, toRoute) => {
   const fromDetail = fromRoute.pathname.startsWith('/works/');
@@ -962,40 +1786,14 @@ function ParallaxImage({
 }
 
 function HeroCover() {
-  const coverRef = useRef(null);
-  const hasLeftView = useRef(true);
-  const [replayKey, setReplayKey] = useState(0);
-
-  useEffect(() => {
-    const cover = coverRef.current;
-    if (!cover) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (hasLeftView.current) {
-            setReplayKey((current) => current + 1);
-            hasLeftView.current = false;
-          }
-        } else {
-          hasLeftView.current = true;
-        }
-      },
-      { threshold: 0.08 }
-    );
-
-    observer.observe(cover);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <figure ref={coverRef} className="hero-media hero-media-static">
+    <figure className="hero-media hero-media-static">
       <iframe
-        key={replayKey}
         className="spline-cover"
         src={heroSplineScene}
         title="Interactive cubes Spline animation"
         allow="autoplay; fullscreen"
+        loading="eager"
       />
     </figure>
   );
@@ -1038,10 +1836,10 @@ function AnimatedHeroTitle() {
         animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
         transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1], delay: 0.04 }}
       >
-        <img className="hero-title-image hero-title-image-dark" src="/assets/hero-title-dark.png" alt="" fetchPriority="high" />
+        <img className="hero-title-image hero-title-image-dark" src="/assets/hero-title-container.png" alt="" fetchPriority="high" />
         <img
           className="hero-title-image hero-title-image-light"
-          src="/assets/hero-title-light.png"
+          src="/assets/hero-title-container.png"
           alt=""
           fetchPriority="high"
         />
@@ -1195,9 +1993,79 @@ function useHeaderHiddenOverAi(routePath) {
   return hidden;
 }
 
-function Header({ routePath = window.location.pathname, theme, onToggleTheme, hideForAi = false }) {
+function useActiveNavSection(routePath) {
+  const [activeSection, setActiveSection] = useState(navItems[0].sectionId);
+
+  useEffect(() => {
+    if (routePath !== '/') {
+      if (routePath.startsWith('/works/')) {
+        const detailSlug = routePath.split('/').filter(Boolean).at(-1);
+        const isAiDetail = efficiencyShowcase.practices.some((item) => item.slug === detailSlug);
+        setActiveSection(isAiDetail ? 'ai-exploration' : 'works');
+      } else {
+        setActiveSection(null);
+      }
+      return undefined;
+    }
+
+    let frameId = 0;
+
+    const updateActiveSection = () => {
+      frameId = 0;
+      const sections = navItems
+        .map((item) => ({
+          id: item.sectionId,
+          element: document.getElementById(item.sectionId),
+        }))
+        .filter((item) => item.element);
+
+      if (sections.length === 0) {
+        setActiveSection(navItems[0].sectionId);
+        return;
+      }
+
+      const documentHeight = document.documentElement.scrollHeight;
+      const viewportBottom = window.scrollY + window.innerHeight;
+
+      if (viewportBottom >= documentHeight - 8) {
+        setActiveSection('contact');
+        return;
+      }
+
+      const probeY = window.scrollY + Math.min(360, window.innerHeight * 0.36);
+      const current = sections.reduce((active, section) => {
+        return section.element.offsetTop <= probeY ? section.id : active;
+      }, sections[0].id);
+
+      setActiveSection((previous) => (previous === current ? previous : current));
+    };
+
+    const requestUpdate = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }, [routePath]);
+
+  return activeSection;
+}
+
+function Header({ routePath = window.location.pathname, theme, onToggleTheme, hideForAi = false, homeHref = '/' }) {
   const [open, setOpen] = useState(false);
-  const showNavAvatar = false;
+  const [pastFirstScreen, setPastFirstScreen] = useState(false);
+  const activeSection = useActiveNavSection(routePath);
+  const showNavAvatar = pastFirstScreen;
   const isDark = theme === 'dark';
 
   useEffect(() => {
@@ -1206,9 +2074,39 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
     }
   }, [hideForAi]);
 
+  useEffect(() => {
+    if (routePath !== '/') {
+      setPastFirstScreen(false);
+      return undefined;
+    }
+
+    let frameId = 0;
+    const updateHeaderState = () => {
+      frameId = 0;
+      const threshold = Math.max(560, window.innerHeight - 80);
+      setPastFirstScreen(window.scrollY >= threshold);
+    };
+    const requestUpdate = () => {
+      if (frameId) return;
+      frameId = window.requestAnimationFrame(updateHeaderState);
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }, [routePath]);
+
   return (
-    <header className={`site-header${hideForAi ? ' is-hidden-over-ai' : ''}`}>
-      <a className={`nav-brand${showNavAvatar ? ' has-avatar' : ''}`} href="/" aria-label="周塞寒 home">
+    <header className={`site-header${hideForAi ? ' is-hidden-over-ai' : ''}${pastFirstScreen ? ' is-past-first-screen' : ''}`}>
+      <a className={`nav-brand${showNavAvatar ? ' has-avatar' : ''}`} href={homeHref} aria-label="周塞寒 home">
         <span className={`nav-avatar-link${showNavAvatar ? ' is-visible' : ''}`} aria-hidden="true">
           <img src={remote.navAvatar} alt="" />
         </span>
@@ -1220,7 +2118,11 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
       <div className="nav-actions">
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navItems.map((item) => (
-            <a key={item.label} href={item.href}>
+            <a
+              className={activeSection === item.sectionId ? 'is-active' : undefined}
+              key={item.label}
+              href={item.href}
+            >
               {item.label}
             </a>
           ))}
@@ -1253,11 +2155,16 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
           closed: { opacity: 0, height: 0, pointerEvents: 'none' },
         }}
       >
-        <a href="/" onClick={() => setOpen(false)}>
+        <a href={homeHref} onClick={() => setOpen(false)}>
           周塞寒
         </a>
         {navItems.map((item) => (
-          <a key={item.label} href={item.href} onClick={() => setOpen(false)}>
+          <a
+            className={activeSection === item.sectionId ? 'is-active' : undefined}
+            key={item.label}
+            href={item.href}
+            onClick={() => setOpen(false)}
+          >
             {item.label}
           </a>
         ))}
@@ -1283,8 +2190,9 @@ function Hero() {
         <Reveal className="intro-note" float={false}>
           <span></span>
           <p>
-            It’s about emotion and clarity. It is the balance between structure and imagination, between timeless form
-            and new possibilities.
+            9年工作经验，全栈设计能力，包括UX、动画、3D、品牌
+            <br />
+            整合设计思维和产品思维，积极探索人与AI系统的协作方式和创新
           </p>
         </Reveal>
       </div>
@@ -1376,12 +2284,12 @@ function WorkGrid() {
                   Works
                 </span>
                 <h3>
-                  游戏业务
+                  核心项目
                   <br />
                   效率研发工具-UX设计
                 </h3>
               </div>
-              <a href="#works" className="approach-link">
+              <a href="/assets/zhou-saihan-ux-designer.pdf" download="周塞寒-UX设计师.pdf" className="approach-link">
                 <span>下载PDF版本</span>
                 <ArrowUpRight size={30} strokeWidth={2.2} />
               </a>
@@ -1406,7 +2314,8 @@ function WorkGrid() {
 function WorkApproachCard({ item, index }) {
   return (
     <a
-      className="work-approach-card"
+      id={`work-card-${item.slug}`}
+      className={`work-approach-card work-card-${item.slug}`}
       href={`/works/${item.slug}`}
       aria-label={item.title}
     >
@@ -1437,7 +2346,9 @@ function WorkApproachCard({ item, index }) {
       </figure>
       <div className="work-approach-copy">
         <span>{item.number}</span>
-        <h4>{item.title}</h4>
+        <h4 className={item.titleParts ? 'work-approach-title-parts' : undefined}>
+          {item.titleParts ? item.titleParts.map((part) => <span key={part}>{part}</span>) : item.title}
+        </h4>
         <p>{item.description}</p>
         <div className="approach-tags">
           {item.tags.map((tag) => (
@@ -1515,9 +2426,9 @@ function AiVideoShrinkStage() {
       const viewportH = window.innerHeight;
       const scrollable = Math.max(1, rect.height - viewportH);
       const progress = smooth(clamp(-rect.top / scrollable));
-      const pagePad = readPxVar('--page-pad', 24);
+      const coverPad = readPxVar('--cover-pad', 24);
       const pageMax = readPxVar('--page-max', 1300);
-      const targetW = Math.min(viewportW - pagePad * 4, pageMax - pagePad * 4);
+      const targetW = Math.min(viewportW - coverPad * 2, pageMax - coverPad * 2);
       const targetH = Math.min(325, Math.max(180, (targetW / 1502) * 325));
       const targetRadius = viewportW < 760 ? 18 : 22;
       const width = viewportW + (targetW - viewportW) * progress;
@@ -1574,7 +2485,11 @@ function AiVideoShrinkStage() {
                 探索与实践
               </h2>
             </div>
-            <a href="#ai-exploration" className="approach-link ai-exploration-link">
+            <a
+              href="/assets/zhou-saihan-ux-designer.pdf"
+              download="周塞寒-UX设计师.pdf"
+              className="approach-link ai-exploration-link"
+            >
               <span>下载PDF版本</span>
               <ArrowUpRight size={30} strokeWidth={2.2} />
             </a>
@@ -1597,6 +2512,7 @@ function AiVideoShrinkStage() {
         <div className="ai-practice-list" aria-label="AI 实践列表">
           {efficiencyShowcase.practices.map((item, index) => (
             <a
+              id={`ai-card-${item.slug}`}
               className="ai-practice-card"
               href={`/works/${item.slug}`}
               key={`${item.title}-${index}`}
@@ -1787,32 +2703,6 @@ function ResumeAccordionItem({ item, index, isOpen, onToggle }) {
   );
 }
 
-function Skills() {
-  return (
-    <MotionSection className="section split-section skills-section content-810 sticky-module" sticky>
-      <aside className="sticky-title">
-        <Reveal className="section-copy sticky-title-inner">
-          <h2>
-            主要技能 <span>[2]</span>
-          </h2>
-          <p>Design across brand, campaign, and visual narrative, shaping ideas into memorable experiences.</p>
-        </Reveal>
-      </aside>
-      <div className="expertise-grid">
-        {expertise.map((item) => (
-          <Reveal key={`skill-${item.title}`} className="expertise-card">
-            <figure>
-              <img src={item.image} alt={item.alt} loading="lazy" />
-            </figure>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </Reveal>
-        ))}
-      </div>
-    </MotionSection>
-  );
-}
-
 function Testimonials() {
   return (
     <MotionSection className="section quote-section sticky-module" sticky>
@@ -1860,19 +2750,164 @@ function Journal() {
   );
 }
 
-function InteractiveEmbed({ kind, src }) {
-  if (!src) return null;
+function LifeLinkSection() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeShowcase, setActiveShowcase] = useState(0);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const [trackOffset, setTrackOffset] = useState(0);
+  const lifeTrackRef = useRef(null);
+
+  const updateLifeTrackOffset = () => {
+    const track = lifeTrackRef.current;
+    const range = getLifeTabShowcaseRange(activeTab);
+    const activeTrackIndex = Math.max(0, Math.min(range.length - 1, activeShowcase - range.start));
+    const activeCard = track?.children?.[activeTrackIndex];
+    if (!track || !activeCard) return;
+
+    const computedStyle = window.getComputedStyle(track);
+    const inset = Number.parseFloat(computedStyle.getPropertyValue('--life-track-inset')) || 0;
+    setTrackOffset(inset - activeCard.offsetLeft);
+  };
+
+  useEffect(() => {
+    if (isAutoPaused) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveShowcase((index) => {
+        const nextIndex = (index + 1) % lifeLinkShowcases.length;
+        setActiveTab(getLifeTabIndexForShowcase(nextIndex));
+        return nextIndex;
+      });
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, [isAutoPaused]);
+
+  useLayoutEffect(() => {
+    const animationFrame = window.requestAnimationFrame(updateLifeTrackOffset);
+    window.addEventListener('resize', updateLifeTrackOffset);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener('resize', updateLifeTrackOffset);
+    };
+  }, [activeShowcase, activeTab]);
+
+  const handleShowcaseStep = (direction) => {
+    setIsAutoPaused(true);
+    setActiveShowcase((index) => {
+      const range = getLifeTabShowcaseRange(activeTab);
+      const relativeIndex = index < range.start || index >= range.end ? 0 : index - range.start;
+      const nextIndex = range.start + ((relativeIndex + direction + range.length) % range.length);
+      return nextIndex;
+    });
+  };
+
+  const activeTabInfo = lifeLinkTabs[activeTab];
+  const activeTabRange = getLifeTabShowcaseRange(activeTab);
+  const activeGroupShowcases = lifeLinkShowcases.slice(activeTabRange.start, activeTabRange.end);
+  const visibleShowcases = activeGroupShowcases.length > 0
+    ? [...activeGroupShowcases, { ...activeGroupShowcases[0], isClone: true }]
+    : [];
+  const activeTabProgressIndex = Math.max(
+    0,
+    Math.min(activeTabRange.length - 1, activeShowcase - activeTabRange.start),
+  );
+
+  const handleTabSelect = (index) => {
+    setIsAutoPaused(true);
+    setActiveTab(index);
+    setActiveShowcase(lifeLinkTabs[index].showcaseIndex);
+  };
 
   return (
-    <Suspense fallback={<div className="embed-fallback" />}>
-      {kind === 'spline' ? <Spline scene={src} /> : <RivePlayer src={src} />}
-    </Suspense>
+    <MotionSection className="life-link-section" id="inspiration" aria-label="Life Links">
+      <Reveal className="life-link-inner">
+        <div className="life-link-tabs" aria-label="生活方式标签">
+          <div className="life-link-tab-grid">
+            {lifeLinkTabs.map((tab, index) => (
+              <button
+                className={`life-link-tab${index === activeTab ? ' is-active' : ''}${
+                  index === activeTab && !isAutoPaused ? ' is-auto-progress' : ''
+                }`}
+                key={tab.items.map((item) => item.label).join('-')}
+                onClick={() => handleTabSelect(index)}
+                type="button"
+              >
+                {tab.items.map((item, itemIndex) => (
+                  <React.Fragment key={item.label}>
+                    <span className="life-link-tab-item" style={{ '--life-progress-order': itemIndex }}>
+                      <span className="life-link-tab-icon" aria-hidden="true">
+                        {item.icon}
+                      </span>
+                      <span className="life-link-tab-label">{item.label}</span>
+                    </span>
+                    {itemIndex < tab.items.length - 1 ? (
+                      <span
+                        className="life-link-tab-separator"
+                        aria-hidden="true"
+                        style={{ '--life-progress-order': itemIndex + 0.5 }}
+                      >
+                        ·
+                      </span>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+              </button>
+            ))}
+          </div>
+          <p>永远保持对世界的好奇心；努力工作也要好好生活</p>
+        </div>
+
+        <div className="life-link-gallery">
+          <div className="life-link-stage" aria-live="polite">
+            <div
+              className="life-link-track"
+              ref={lifeTrackRef}
+              style={{ '--life-offset': `${trackOffset}px` }}
+            >
+              {visibleShowcases.map((showcase, index) => (
+                <figure
+                  className="life-link-image-card"
+                  key={`${showcase.label}-${showcase.isClone ? 'clone' : index}`}
+                  aria-hidden={showcase.isClone ? 'true' : undefined}
+                >
+                  <img
+                    src={showcase.main}
+                    alt={showcase.alt}
+                    style={{ objectPosition: showcase.mainPosition }}
+                    loading="lazy"
+                    onLoad={updateLifeTrackOffset}
+                  />
+                </figure>
+              ))}
+            </div>
+          </div>
+          <div className="life-link-controls" aria-label="切换生活图片">
+            <button aria-label="上一张图片" onClick={() => handleShowcaseStep(-1)} type="button">
+              <ArrowLeft size={18} strokeWidth={1.8} />
+            </button>
+            <span aria-live="polite">
+              {String(activeTabProgressIndex + 1).padStart(2, '0')} / {String(activeTabRange.length).padStart(2, '0')}
+            </span>
+            <button aria-label="下一张图片" onClick={() => handleShowcaseStep(1)} type="button">
+              <ArrowRight size={18} strokeWidth={1.8} />
+            </button>
+          </div>
+        </div>
+      </Reveal>
+    </MotionSection>
   );
 }
 
 function Footer() {
   const footerRef = useRef(null);
   const footerVideoRef = useRef(null);
+  const footerFlipTrackRef = useRef(null);
+  const footerCopyTooltipTimerRef = useRef(null);
+  const [footerCopyTooltipVisible, setFooterCopyTooltipVisible] = useState(false);
+  const [footerInfoHoverable, setFooterInfoHoverable] = useState(false);
+  const footerCopyValues = ['“Me”', '13942083539', 'zhousaihanwork@gmail', '“Me”'];
 
   useEffect(() => {
     const footer = footerRef.current;
@@ -1917,6 +2952,75 @@ function Footer() {
     };
   }, []);
 
+  useEffect(() => () => {
+    if (footerCopyTooltipTimerRef.current) {
+      window.clearTimeout(footerCopyTooltipTimerRef.current);
+    }
+  }, []);
+
+  const isCopyableFooterInfo = (value) => !/[“”]/.test(value);
+
+  const getVisibleFooterInfo = () => {
+    const track = footerFlipTrackRef.current;
+    if (!track) return footerCopyValues[0];
+
+    const transform = window.getComputedStyle(track).transform;
+    if (!transform || transform === 'none') return footerCopyValues[0];
+
+    try {
+      const matrix = new DOMMatrixReadOnly(transform);
+      const index = Math.max(0, Math.min(footerCopyValues.length - 1, Math.round(Math.abs(matrix.m42) / 74)));
+      return footerCopyValues[index] || footerCopyValues[0];
+    } catch {
+      return footerCopyValues[0];
+    }
+  };
+
+  const handleFooterInfoPointerEnter = () => {
+    setFooterInfoHoverable(isCopyableFooterInfo(getVisibleFooterInfo()));
+  };
+
+  const handleFooterInfoPointerLeave = () => {
+    setFooterInfoHoverable(false);
+  };
+
+  const handleFooterInfoCopy = async () => {
+    const value = getVisibleFooterInfo();
+    if (!isCopyableFooterInfo(value)) return;
+
+    const cleanValue = value.replace(/[“”]/g, '');
+
+    try {
+      await navigator.clipboard.writeText(cleanValue);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = cleanValue;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+    }
+
+    setFooterCopyTooltipVisible(true);
+    if (footerCopyTooltipTimerRef.current) {
+      window.clearTimeout(footerCopyTooltipTimerRef.current);
+    }
+    footerCopyTooltipTimerRef.current = window.setTimeout(() => setFooterCopyTooltipVisible(false), 1200);
+  };
+
+  const handleFooterVideoTimeUpdate = (event) => {
+    const video = event.currentTarget;
+    if (!Number.isFinite(video.duration) || video.duration < 1) return;
+
+    if (video.currentTime >= video.duration - 0.35) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  };
+
   return (
     <footer className="footer goodbye-footer" id="contact" aria-label="Footer" ref={footerRef}>
       <div className="goodbye-inner">
@@ -1949,20 +3053,41 @@ function Footer() {
               poster="/assets/goodbye-strip.png"
               preload="auto"
               src="/assets/footer-contact-video.mov"
+              onTimeUpdate={handleFooterVideoTimeUpdate}
               onPointerEnter={() => footerVideoRef.current?.play().catch(() => {})}
             />
           </figure>
           <a className="goodbye-arrow" href="#" aria-label="Back to top">
             <span aria-hidden="true" />
           </a>
-          <span className="goodbye-block goodbye-block-me" aria-label="Me, 13942083539, zhousaihanwork@gmail">
-            <span className="goodbye-flip-track" aria-hidden="true">
-              <span>“Me”</span>
-              <span>13942083539</span>
-              <span>zhousaihanwork@gmail</span>
-              <span>“Me”</span>
+          <button
+            className={`goodbye-block goodbye-block-me${footerInfoHoverable ? ' is-contact-hover' : ''}${
+              footerCopyTooltipVisible ? ' is-tooltip-visible' : ''
+            }`}
+            type="button"
+            aria-label="复制当前联系方式"
+            onPointerEnter={handleFooterInfoPointerEnter}
+            onPointerLeave={handleFooterInfoPointerLeave}
+            onFocus={handleFooterInfoPointerEnter}
+            onBlur={handleFooterInfoPointerLeave}
+            onClick={handleFooterInfoCopy}
+          >
+            <span className="goodbye-flip-viewport">
+              <span className="goodbye-flip-track" aria-hidden="true" ref={footerFlipTrackRef}>
+                <span>“Me”</span>
+                <span className="goodbye-contact-value">
+                  <span className="goodbye-contact-text">13942083539</span>
+                </span>
+                <span className="goodbye-contact-value">
+                  <span className="goodbye-contact-text">zhousaihanwork@gmail</span>
+                </span>
+                <span>“Me”</span>
+              </span>
             </span>
-          </span>
+            <span className="goodbye-copy-tooltip" role="status" aria-live="polite">
+              复制成功
+            </span>
+          </button>
         </div>
         <p>Designed and Coded by Ice Zhou • Copyright @ 2026|</p>
       </div>
@@ -2000,10 +3125,38 @@ function HomePage() {
         <WorkGrid />
         <Expertise />
         <Awards />
-        <Skills />
+        <LifeLinkSection />
       </main>
       <Footer />
     </>
+  );
+}
+
+function MarkdownPanel({ src, title }) {
+  const [content, setContent] = useState('加载中...');
+
+  useEffect(() => {
+    let isActive = true;
+
+    fetch(src)
+      .then((response) => (response.ok ? response.text() : Promise.reject(new Error('无法读取文档'))))
+      .then((text) => {
+        if (isActive) setContent(text);
+      })
+      .catch(() => {
+        if (isActive) setContent('文档加载失败，请检查资源路径。');
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [src]);
+
+  return (
+    <div className="detail-copy-panel detail-copy-markdown-panel">
+      <div className="detail-copy-markdown-panel-head">{title}</div>
+      <pre>{content}</pre>
+    </div>
   );
 }
 
@@ -2011,6 +3164,14 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
   const key = `${block.type}-${index}`;
   const headingId = getDetailHeadingId(block, index);
   const openMediaPreview = mediaPreview.openMediaPreview || (() => {});
+  const setDetailCursor = mediaPreview.setDetailCursor;
+  const mediaHoverProps = setDetailCursor
+    ? {
+        onPointerMove: (event) => setDetailCursor({ x: event.clientX, y: event.clientY, active: true }),
+        onPointerEnter: (event) => setDetailCursor({ x: event.clientX, y: event.clientY, active: true }),
+        onPointerLeave: () => setDetailCursor((cursor) => ({ ...cursor, active: false })),
+      }
+    : {};
 
   if (block.type === 'sectionTitle') {
     return (
@@ -2052,10 +3213,22 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
   if (block.type === 'callout') {
     return (
       <p className={`detail-copy-callout detail-copy-callout-${block.tone || 'default'}`} key={key}>
-        <span aria-hidden="true">💡</span>
+        <span aria-hidden="true">{block.icon || '💡'}</span>
         <span>{block.text}</span>
       </p>
     );
+  }
+
+  if (block.type === 'panel') {
+    return (
+      <div className={`detail-copy-panel ${block.className || ''}`} key={key}>
+        {block.text}
+      </div>
+    );
+  }
+
+  if (block.type === 'markdownPanel') {
+    return <MarkdownPanel key={key} src={block.src} title={block.title} />;
   }
 
   if (block.type === 'calloutWithImages') {
@@ -2076,6 +3249,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
                 className="detail-copy-media-button"
                 type="button"
                 onClick={() => openMediaPreview(image.src)}
+                {...mediaHoverProps}
                 aria-label={`放大预览：${image.alt || '图片'}`}
               >
                 <img src={image.src} alt={image.alt || ''} loading="lazy" />
@@ -2114,6 +3288,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
           className="detail-copy-media-button"
           type="button"
           onClick={() => openMediaPreview(block.src)}
+          {...mediaHoverProps}
           aria-label={`放大预览：${block.alt || '图片'}`}
         >
           <img src={block.src} alt={block.alt || ''} loading="lazy" />
@@ -2139,6 +3314,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
               className="detail-copy-media-button"
               type="button"
               onClick={() => openMediaPreview(image.src)}
+              {...mediaHoverProps}
               aria-label={`放大预览：${image.alt || '图片'}`}
             >
               <img
@@ -2154,6 +3330,36 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
     );
   }
 
+  if (block.type === 'imagePanelPair') {
+    return (
+      <div
+        className={`detail-copy-image-panel-pair ${block.className || ''}`}
+        key={key}
+        style={block.columns ? { gridTemplateColumns: block.columns } : undefined}
+      >
+        <figure
+          className="detail-copy-figure"
+          style={block.image.aspectRatio ? { aspectRatio: block.image.aspectRatio } : undefined}
+        >
+          <button
+            className="detail-copy-media-button"
+            type="button"
+            onClick={() => openMediaPreview(block.image.src)}
+            {...mediaHoverProps}
+            aria-label={`放大预览：${block.image.alt || '图片'}`}
+          >
+            <img src={block.image.src} alt={block.image.alt || ''} loading="lazy" />
+          </button>
+        </figure>
+        {block.panelMarkdown ? (
+          <MarkdownPanel src={block.panelMarkdown.src} title={block.panelMarkdown.title} />
+        ) : (
+          <div className="detail-copy-panel">{block.panelText}</div>
+        )}
+      </div>
+    );
+  }
+
   if (block.type === 'videoPair') {
     return (
       <div className="detail-copy-video-pair" key={key}>
@@ -2163,6 +3369,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
               className="detail-copy-media-button"
               type="button"
               onClick={() => openMediaPreview(video.src)}
+              {...mediaHoverProps}
               aria-label={`放大预览：${video.label || '视频'}`}
             >
               <video
@@ -2177,6 +3384,31 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
             </button>
           </figure>
         ))}
+      </div>
+    );
+  }
+
+  if (block.type === 'processTable') {
+    return (
+      <div className="detail-copy-process-table-wrap" key={key}>
+        <table className="detail-copy-process-table">
+          <thead>
+            <tr>
+              {block.headers.map((header, headerIndex) => (
+                <th key={`${key}-head-${headerIndex}`}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {block.rows.map((row, rowIndex) => (
+              <tr className={rowIndex === block.highlightRow ? 'is-highlighted' : undefined} key={`${key}-row-${row[0]}`}>
+                {row.map((cell, cellIndex) => (
+                  <td key={`${key}-cell-${rowIndex}-${cellIndex}`}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -2196,7 +3428,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
 
   if (block.type === 'richParagraphs') {
     return (
-      <div className="detail-copy-paragraphs" key={key}>
+      <div className={`detail-copy-paragraphs ${block.className || ''}`} key={key}>
         {block.items.map((segments, paragraphIndex) => (
           <p key={`${key}-paragraph-${paragraphIndex}`}>
             {segments.map((segment, segmentIndex) => (
@@ -2242,7 +3474,8 @@ function getDetailTocItems(copyBlocks = []) {
       return {
         id,
         level,
-        text: block.text,
+        text: block.tocLabel || block.text,
+        fullText: block.text,
       };
     })
     .filter(Boolean);
@@ -2263,6 +3496,12 @@ function getDetailMediaItems(detail) {
       }));
     }
 
+    if (block.type === 'imagePanelPair') {
+      return block.image
+        ? [{ type: 'image', src: block.image.src, previewSrc: block.image.previewSrc, alt: block.image.alt || '图片预览' }]
+        : [];
+    }
+
     if (block.type === 'videoPair') {
       return (block.videos || []).map((video) => ({
         type: 'video',
@@ -2274,12 +3513,14 @@ function getDetailMediaItems(detail) {
     return [];
   });
 
-  const galleryMedia = (detail.images || []).map((image) => ({
-    type: 'image',
-    src: image.src,
-    previewSrc: image.previewSrc,
-    alt: image.alt || '图片预览',
-  }));
+  const galleryMedia = (detail.images || [])
+    .filter((image) => image.src && image.type !== 'figmaEmbed')
+    .map((image) => ({
+      type: 'image',
+      src: image.src,
+      previewSrc: image.previewSrc,
+      alt: image.alt || '图片预览',
+    }));
 
   return [...copyMedia, ...galleryMedia];
 }
@@ -2299,13 +3540,15 @@ function getDetailHeroCard(work) {
   }
 
   return {
-    label: 'Works',
-    kicker: work.type,
+    label: work.detailHeroLabel || 'Works',
+    kicker: work.detailHeroKicker || work.type,
     title: work.title,
-    image: work.image,
-    video: work.video,
+    image: work.detailHeroImage || work.image,
+    video: work.detailHeroImage ? null : work.video,
     alt: work.alt || work.title,
-    className: 'is-work-card',
+    className: `is-work-card${work.detailHeroImageMode === 'contain' ? ' is-contain-media' : ''}${
+      work.detailHeroVariant ? ` is-${work.detailHeroVariant}` : ''
+    }`,
   };
 }
 
@@ -2318,7 +3561,7 @@ function DetailHeroCard({ work }) {
         <span>{card.label}</span>
         <h2>
           <small>{card.kicker}</small>
-          {card.title}
+          <span>{card.title}</span>
         </h2>
       </div>
       {card.video ? (
@@ -2342,8 +3585,15 @@ function DetailHeroCard({ work }) {
 function WorkDetail({ work, detail }) {
   const facts = detail.facts;
   const otherContentCards = getOtherContentCards(work.slug);
+  const homeReturnHref = efficiencyShowcase.practices.some((item) => item.slug === work.slug)
+    ? `/#ai-card-${work.slug}`
+    : `/#work-card-${work.slug}`;
   const tocItems = useMemo(() => getDetailTocItems(detail.copyBlocks), [detail.copyBlocks]);
   const mediaItems = useMemo(() => getDetailMediaItems(detail), [detail]);
+  const galleryPreviewItems = useMemo(
+    () => (detail.images || []).filter((image) => image.src && image.type !== 'figmaEmbed'),
+    [detail.images],
+  );
   const [previewIndex, setPreviewIndex] = useState(null);
   const [previewCursor, setPreviewCursor] = useState({ x: 0, y: 0, active: false });
   const [detailCursor, setDetailCursor] = useState({ x: 0, y: 0, active: false });
@@ -2351,7 +3601,7 @@ function WorkDetail({ work, detail }) {
   const [activeTocId, setActiveTocId] = useState(tocItems[0]?.id || null);
   const previewMedia = previewIndex === null ? null : mediaItems[previewIndex];
   const mediaCount = mediaItems.length;
-  const galleryMediaOffset = mediaItems.length - detail.images.length;
+  const galleryMediaOffset = mediaItems.length - galleryPreviewItems.length;
 
   const movePreview = (direction) => {
     setPreviewIndex((currentIndex) => {
@@ -2439,7 +3689,7 @@ function WorkDetail({ work, detail }) {
 
   return (
     <>
-      <main className="detail-page" id="top">
+      <main className={`detail-page detail-page-${work.slug}`} id="top">
         <aside className={`detail-sidebar${showDetailToc && tocItems.length ? ' is-toc-mode' : ''}`} aria-label="Project details">
           <div className="detail-sidebar-panel detail-sidebar-facts">
             {facts.map(([label, value]) => (
@@ -2456,6 +3706,7 @@ function WorkDetail({ work, detail }) {
                   className={`detail-toc-link detail-toc-level-${item.level}${activeTocId === item.id ? ' is-active' : ''}`}
                   href={`#${item.id}`}
                   key={item.id}
+                  title={item.fullText}
                   onClick={(event) => handleTocClick(event, item.id)}
                 >
                   {item.text}
@@ -2473,7 +3724,9 @@ function WorkDetail({ work, detail }) {
           </Reveal>
           {detail.copyBlocks ? (
             <div className="detail-copy">
-              {detail.copyBlocks.map((block, index) => renderDetailCopyBlock(block, index, { openMediaPreview }))}
+              {detail.copyBlocks.map((block, index) =>
+                renderDetailCopyBlock(block, index, { openMediaPreview, setDetailCursor }),
+              )}
             </div>
           ) : (
             <Reveal className="detail-copy" delay={0.05}>
@@ -2490,42 +3743,71 @@ function WorkDetail({ work, detail }) {
           )}
           {detail.images.length ? (
             <div className="detail-gallery">
-              {detail.images.map((image, index) => (
-                <Reveal
-                  className={`detail-image${index === 0 && !image.preserveRatio ? ' detail-image-wide' : ''}${
-                    image.preserveRatio ? ' detail-image-natural' : ''
-                  }`}
-                  key={`${image.src}-${index}`}
-                >
-                  <button
-                    className="detail-image-button"
-                    type="button"
-                  onClick={() => {
-                    setDetailCursor((cursor) => ({ ...cursor, active: false }));
-                    setPreviewIndex(galleryMediaOffset + index);
-                  }}
-                    onPointerMove={(event) =>
-                      setDetailCursor({ x: event.clientX, y: event.clientY, active: true })
-                    }
-                    onPointerEnter={(event) =>
-                      setDetailCursor({ x: event.clientX, y: event.clientY, active: true })
-                    }
-                    onPointerLeave={() => setDetailCursor((cursor) => ({ ...cursor, active: false }))}
-                    aria-label={`预览图片：${image.alt}`}
+              {detail.images.map((image, index) => {
+                if (image.type === 'figmaEmbed') {
+                  return (
+                    <Reveal className="detail-figma-embed" key={`${image.src}-${index}`}>
+                      <iframe
+                        src={image.src}
+                        title={image.title || 'Figma 预览'}
+                        loading="lazy"
+                        allowFullScreen
+                      />
+                    </Reveal>
+                  );
+                }
+
+                const galleryPreviewIndex = detail.images
+                  .slice(0, index)
+                  .filter((item) => item.src && item.type !== 'figmaEmbed').length;
+
+                return (
+                  <Reveal
+                    className={`detail-image${index === 0 && !image.preserveRatio ? ' detail-image-wide' : ''}${
+                      image.preserveRatio ? ' detail-image-natural' : ''
+                    }`}
+                    key={`${image.src}-${index}`}
                   >
-                    <img src={image.src} alt={image.alt} loading={index > 1 ? 'lazy' : 'eager'} />
-                  </button>
-                </Reveal>
-              ))}
+                    <button
+                      className="detail-image-button"
+                      type="button"
+                      onClick={() => {
+                        setDetailCursor((cursor) => ({ ...cursor, active: false }));
+                        setPreviewIndex(galleryMediaOffset + galleryPreviewIndex);
+                      }}
+                      onPointerMove={(event) =>
+                        setDetailCursor({ x: event.clientX, y: event.clientY, active: true })
+                      }
+                      onPointerEnter={(event) =>
+                        setDetailCursor({ x: event.clientX, y: event.clientY, active: true })
+                      }
+                      onPointerLeave={() => setDetailCursor((cursor) => ({ ...cursor, active: false }))}
+                      aria-label={`预览图片：${image.alt}`}
+                    >
+                      <img src={image.src} alt={image.alt} loading={image.loading || (index > 1 ? 'lazy' : 'eager')} />
+                    </button>
+                  </Reveal>
+                );
+              })}
             </div>
           ) : null}
           <Reveal className="related-title">
-            <h2>其他内容</h2>
+            <div className="related-title-row">
+              <h2>其他内容</h2>
+              <a className="approach-link detail-home-link" href={homeReturnHref}>
+                <span>返回首页</span>
+                <ArrowUpRight size={30} strokeWidth={2.2} />
+              </a>
+            </div>
           </Reveal>
           <div className="detail-related-grid">
             {otherContentCards.map((related, index) => (
               <Reveal className="detail-related-card" key={related.slug} delay={index * 0.08}>
-                <a className="image-link" href={`/works/${related.slug}`} aria-label={related.title}>
+                <a
+                  className="image-link"
+                  href={`/works/${related.slug}`}
+                  aria-label={related.title}
+                >
                   <span className="detail-related-cover">
                     {related.video ? (
                       <video
@@ -2634,14 +3916,13 @@ function App() {
   });
   const routeRef = useRef(route);
   const transitionTimersRef = useRef([]);
+  const didRestoreInitialScrollRef = useRef(false);
+  const skipNextHashScrollRef = useRef(false);
   const workMatch = route.pathname.match(/^\/works\/([^/]+)\/?$/);
   const approachWorkItems = workApproach.map((item) => ({
-    slug: item.slug,
-    title: item.title,
+    ...item,
     type: 'Project approach',
-    image: item.image,
-    alt: item.title,
-    description: item.description,
+    alt: item.alt || item.title,
   }));
   const aiWorkItems = efficiencyShowcase.practices.map((item) => ({
     slug: item.slug,
@@ -2654,6 +3935,13 @@ function App() {
   const currentWork = workMatch
     ? [...works, ...approachWorkItems, ...aiWorkItems].find((work) => work.slug === workMatch[1])
     : null;
+  const currentWorkSlug = currentWork?.slug;
+  const brandHomeHref =
+    currentWorkSlug && workApproach.some((item) => item.slug === currentWorkSlug)
+      ? `/#work-card-${currentWorkSlug}`
+      : currentWorkSlug && efficiencyShowcase.practices.some((item) => item.slug === currentWorkSlug)
+        ? `/#ai-card-${currentWorkSlug}`
+        : '/';
   const currentDetail = currentWork
     ? workDetails[currentWork.slug] || {
         facts:
@@ -2708,13 +3996,65 @@ function App() {
     window.localStorage.setItem(themeStorageKey, theme);
   }, [theme]);
 
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+
+    let saveAnimationFrame = 0;
+
+    const saveCurrentScroll = () => {
+      saveAnimationFrame = 0;
+      saveRouteScroll(routeRef.current);
+    };
+
+    const handleScroll = () => {
+      if (saveAnimationFrame) return;
+      saveAnimationFrame = window.requestAnimationFrame(saveCurrentScroll);
+    };
+
+    const handleBeforeUnload = () => {
+      saveRouteScroll(routeRef.current);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('pagehide', handleBeforeUnload);
+
+    return () => {
+      if (saveAnimationFrame) window.cancelAnimationFrame(saveAnimationFrame);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('pagehide', handleBeforeUnload);
+    };
+  }, []);
+
   useLayoutEffect(() => {
     routeRef.current = route;
+
+    if (!didRestoreInitialScrollRef.current) {
+      didRestoreInitialScrollRef.current = true;
+      const savedScroll = getSavedRouteScroll(route);
+
+      if (savedScroll !== null) {
+        skipNextHashScrollRef.current = true;
+        const restoreScroll = () => window.scrollTo({ top: savedScroll, left: 0, behavior: 'auto' });
+        restoreScroll();
+        window.setTimeout(restoreScroll, 80);
+        window.setTimeout(restoreScroll, 260);
+        return;
+      }
+    }
+
     scrollToRouteTarget(route);
   }, [route.pathname, route.search, route.hash]);
 
   useEffect(() => {
     if (!route.hash) return undefined;
+
+    if (skipNextHashScrollRef.current) {
+      skipNextHashScrollRef.current = false;
+      return undefined;
+    }
 
     const timer = window.setTimeout(() => {
       scrollToRouteTarget(route);
@@ -2818,7 +4158,7 @@ function App() {
   }, []);
 
   const page = currentWork && currentDetail ? <WorkDetail work={currentWork} detail={currentDetail} /> : <HomePage />;
-  const hideHeaderOverAi = useHeaderHiddenOverAi(route.pathname);
+  const hideHeaderOverAi = false;
 
   return (
     <>
@@ -2827,6 +4167,7 @@ function App() {
         theme={theme}
         onToggleTheme={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
         hideForAi={hideHeaderOverAi}
+        homeHref={brandHomeHref}
       />
       <RouteTransitionOverlay transition={routeTransition} />
       {page}

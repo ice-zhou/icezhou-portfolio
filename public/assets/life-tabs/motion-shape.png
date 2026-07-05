@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 124.773 124.773" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Image (An abstract shape that representative of Film &#38; Motion)" clip-path="url(#clip0_0_4)">
+<path id="Vector" d="M229.998 330.496C284.949 330.496 329.496 285.949 329.496 230.998C329.496 176.047 284.949 131.5 229.998 131.5C175.047 131.5 130.5 176.047 130.5 230.998C130.5 285.949 175.047 330.496 229.998 330.496Z" stroke="var(--stroke-0, #868686)"/>
+<path id="Vector_2" d="M229.996 296.5C266.171 296.5 295.496 267.175 295.496 231C295.496 194.825 266.171 165.5 229.996 165.5C193.821 165.5 164.496 194.825 164.496 231C164.496 267.175 193.821 296.5 229.996 296.5Z" stroke="var(--stroke-0, #868686)"/>
+<path id="Vector_3" d="M230.5 131V330.997M329.992 231.5H129.996M157.332 164.834H303.005V297.165H157.332V164.834Z" stroke="var(--stroke-0, #868686)"/>
+</g>
+<defs>
+<clipPath id="clip0_0_4">
+<rect width="124.773" height="124.773" fill="white"/>
+</clipPath>
+</defs>
+</svg>
