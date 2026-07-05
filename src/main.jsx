@@ -2067,6 +2067,7 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
   const activeSection = useActiveNavSection(routePath);
   const showNavAvatar = pastFirstScreen;
   const isDark = theme === 'dark';
+  const isOverAi = routePath === '/' && activeSection === 'ai-exploration';
 
   useEffect(() => {
     if (hideForAi) {
@@ -2105,7 +2106,11 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
   }, [routePath]);
 
   return (
-    <header className={`site-header${hideForAi ? ' is-hidden-over-ai' : ''}${pastFirstScreen ? ' is-past-first-screen' : ''}`}>
+    <header
+      className={`site-header${hideForAi ? ' is-hidden-over-ai' : ''}${pastFirstScreen ? ' is-past-first-screen' : ''}${
+        isOverAi ? ' is-over-ai' : ''
+      }`}
+    >
       <a className={`nav-brand${showNavAvatar ? ' has-avatar' : ''}`} href={homeHref} aria-label="周塞寒 home">
         <span className={`nav-avatar-link${showNavAvatar ? ' is-visible' : ''}`} aria-hidden="true">
           <img src={remote.navAvatar} alt="" />
