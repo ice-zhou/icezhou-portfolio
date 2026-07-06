@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { Alignment, Fit, Layout, Rive as RiveRuntime } from '@rive-app/canvas';
@@ -4176,6 +4177,7 @@ function App() {
       />
       <RouteTransitionOverlay transition={routeTransition} />
       {page}
+      <Analytics />
     </>
   );
 }
