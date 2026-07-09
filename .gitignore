@@ -2,6 +2,11 @@ node_modules/
 dist/
 .npm-cache/
 qa-screenshots/
+asset-originals/
+.env
+.env.local
+.env.*.local
 
 .DS_Store
 *.log
+*.tar.gz

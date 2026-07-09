@@ -35,6 +35,7 @@
   --detail-copy: #303030;
   --detail-subtitle-size: 16px;
   --approach-shadow: 0 18px 45px rgba(15, 18, 25, 0.07);
+  --image-placeholder: rgba(0, 0, 0, 0.2);
   --page-pad: 24px;
   --page-max: 1300px;
   --nav-text-offset: 0px;
@@ -220,7 +221,7 @@ html[data-theme='dark'] .site-header.is-past-first-screen {
   height: 50px;
   overflow: hidden;
   border-radius: 6px;
-  background: #d8d8d8;
+  background: #d8d8d8 url('/assets/site-favicon.jpg?v=20260708') center / cover no-repeat;
   opacity: 0;
   transform: translateY(-50%);
   pointer-events: none;
@@ -5026,4 +5027,31 @@ html[data-theme='light'] .detail-page-ai-design-context .detail-fact strong {
 .ai-video-shrink-head .ai-exploration-link::after {
   display: none;
   content: none;
+}
+
+img.image-placeholder:not(.is-loaded) {
+  background: var(--image-placeholder);
+  animation: image-placeholder-pulse 1.35s ease-in-out infinite;
+}
+
+img.image-placeholder.is-loaded {
+  animation: none;
+  background-color: transparent;
+}
+
+@keyframes image-placeholder-pulse {
+  0%,
+  100% {
+    opacity: 0.52;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img.image-placeholder:not(.is-loaded) {
+    animation: none;
+  }
 }

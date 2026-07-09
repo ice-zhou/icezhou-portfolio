@@ -1,6 +1,5 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Analytics } from '@vercel/analytics/react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
 import { Alignment, Fit, Layout, Rive as RiveRuntime } from '@rive-app/canvas';
@@ -8,7 +7,8 @@ import './styles.css';
 
 const remote = {
   profile: 'https://framerusercontent.com/images/nKZxL3ov6hieQXZbst1I06HCxPI.jpg?width=627&height=627',
-  navAvatar: '/assets/nav-avatar.jpg',
+  navAvatar: '/assets/nav-avatar.jpg?v=20260708',
+  favicon: '/assets/site-favicon.jpg?v=20260708',
   avatar: 'https://framerusercontent.com/images/GPvMOYFAY3ni4KJV3GQuc3IF4.jpg?width=400&height=400',
   hero: 'https://framerusercontent.com/images/ILyIs9RAVctBPayP51c5h9h183I.png?scale-down-to=2048&width=3408&height=1680',
   game: 'https://framerusercontent.com/images/36ShfVCREfvo4ZUY5WJmijhZeE.png?width=600&height=400',
@@ -25,6 +25,115 @@ const avatarRive = {
   artboard: 'Avatars',
   stateMachines: 'State Machine 1',
 };
+
+const resumePdf = {
+  url: import.meta.env.VITE_RESUME_PDF_URL || '/assets/zhou-saihan-ux-designer.pdf',
+  filename: '周塞寒-UX设计师.pdf',
+};
+
+const mergeClassNames = (...classNames) => classNames.filter(Boolean).join(' ');
+
+const PlaceholderImage = React.forwardRef(function PlaceholderImage(
+  { className = '', src, onLoad, onError, ...props },
+  forwardedRef,
+) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const nodeRef = useRef(null);
+
+  const setRefs = useCallback(
+    (node) => {
+      nodeRef.current = node;
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node);
+      } else if (forwardedRef) {
+        forwardedRef.current = node;
+      }
+    },
+    [forwardedRef],
+  );
+
+  useEffect(() => {
+    setIsLoaded(false);
+    const node = nodeRef.current;
+    if (node?.complete && node.naturalWidth > 0) {
+      setIsLoaded(true);
+    }
+  }, [src]);
+
+  return (
+    <img
+      {...props}
+      ref={setRefs}
+      src={src}
+      className={mergeClassNames('image-placeholder', isLoaded && 'is-loaded', className)}
+      onLoad={(event) => {
+        setIsLoaded(true);
+        onLoad?.(event);
+      }}
+      onError={(event) => {
+        setIsLoaded(false);
+        onError?.(event);
+      }}
+    />
+  );
+});
+
+const LazyVideo = React.forwardRef(function LazyVideo(
+  { src, autoPlay = true, preload = 'metadata', rootMargin = '600px', ...props },
+  forwardedRef,
+) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const nodeRef = useRef(null);
+
+  const setRefs = useCallback(
+    (node) => {
+      nodeRef.current = node;
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(node);
+      } else if (forwardedRef) {
+        forwardedRef.current = node;
+      }
+    },
+    [forwardedRef],
+  );
+
+  useEffect(() => {
+    const node = nodeRef.current;
+    if (!node || shouldLoad) return undefined;
+    if (typeof IntersectionObserver === 'undefined') {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [rootMargin, shouldLoad]);
+
+  useEffect(() => {
+    if (!shouldLoad || !autoPlay) return;
+    nodeRef.current?.play().catch(() => {});
+  }, [autoPlay, shouldLoad, src]);
+
+  return (
+    <video
+      ref={setRefs}
+      src={shouldLoad ? src : undefined}
+      autoPlay={shouldLoad ? autoPlay : false}
+      preload={shouldLoad ? preload : 'none'}
+      {...props}
+    />
+  );
+});
 
 const works = [
   {
@@ -1772,13 +1881,21 @@ function ParallaxImage({
   as: Tag = 'figure',
   hover = true,
 }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
+
   return (
     <Tag className={`parallax-frame ${className}`}>
       <motion.img
-        className={imageClassName}
+        className={mergeClassNames('image-placeholder', isLoaded && 'is-loaded', imageClassName)}
         src={src}
         alt={alt}
         loading={loading}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(false)}
         whileHover={hover ? { scale: 1.035 } : undefined}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       />
@@ -1837,8 +1954,13 @@ function AnimatedHeroTitle() {
         animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
         transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1], delay: 0.04 }}
       >
-        <img className="hero-title-image hero-title-image-dark" src="/assets/hero-title-container.png" alt="" fetchPriority="high" />
-        <img
+        <PlaceholderImage
+          className="hero-title-image hero-title-image-dark"
+          src="/assets/hero-title-container.png"
+          alt=""
+          fetchPriority="high"
+        />
+        <PlaceholderImage
           className="hero-title-image hero-title-image-light"
           src="/assets/hero-title-container.png"
           alt=""
@@ -2114,7 +2236,14 @@ function Header({ routePath = window.location.pathname, theme, onToggleTheme, hi
     >
       <a className={`nav-brand${showNavAvatar ? ' has-avatar' : ''}`} href={homeHref} aria-label="周塞寒 home">
         <span className={`nav-avatar-link${showNavAvatar ? ' is-visible' : ''}`} aria-hidden="true">
-          <img src={remote.navAvatar} alt="" />
+          <PlaceholderImage
+            src={remote.navAvatar}
+            alt=""
+            onError={(event) => {
+              if (event.currentTarget.src.includes('site-favicon.jpg')) return;
+              event.currentTarget.src = remote.favicon;
+            }}
+          />
         </span>
         <span className="nav-brand-copy">
           <span className="nav-name">周塞寒</span>
@@ -2295,7 +2424,7 @@ function WorkGrid() {
                   效率研发工具-UX设计
                 </h3>
               </div>
-              <a href="/assets/zhou-saihan-ux-designer.pdf" download="周塞寒-UX设计师.pdf" className="approach-link">
+              <a href={resumePdf.url} download={resumePdf.filename} className="approach-link">
                 <span>下载PDF版本</span>
                 <ArrowUpRight size={30} strokeWidth={2.2} />
               </a>
@@ -2327,7 +2456,7 @@ function WorkApproachCard({ item, index }) {
     >
       <figure>
         {item.video ? (
-          <video
+          <LazyVideo
             className="work-approach-video"
             src={item.video}
             poster={item.image}
@@ -2342,7 +2471,7 @@ function WorkApproachCard({ item, index }) {
             aria-hidden="true"
           />
         ) : (
-          <img
+          <PlaceholderImage
             className={item.imageClassName || undefined}
             src={item.image}
             alt=""
@@ -2492,8 +2621,8 @@ function AiVideoShrinkStage() {
               </h2>
             </div>
             <a
-              href="/assets/zhou-saihan-ux-designer.pdf"
-              download="周塞寒-UX设计师.pdf"
+              href={resumePdf.url}
+              download={resumePdf.filename}
               className="approach-link ai-exploration-link"
             >
               <span>下载PDF版本</span>
@@ -2501,7 +2630,7 @@ function AiVideoShrinkStage() {
             </a>
           </div>
           <figure className="ai-video-shrink-frame" ref={frameRef}>
-            <video
+            <LazyVideo
               src={efficiencyShowcase.heroVideo}
               poster={efficiencyShowcase.heroPoster}
               aria-label="AI Exploration 视觉展示"
@@ -2509,7 +2638,7 @@ function AiVideoShrinkStage() {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
             />
           </figure>
         </div>
@@ -2534,7 +2663,7 @@ function AiVideoShrinkStage() {
                   {item.title}
                 </h3>
               </div>
-              <img src={item.image} alt={item.alt} loading="lazy" />
+              <PlaceholderImage src={item.image} alt={item.alt} loading="lazy" />
             </a>
           ))}
         </div>
@@ -2557,7 +2686,7 @@ function Expertise() {
   return (
     <MotionSection className="section profile-info-section" id="about">
       <Reveal className="profile-info-media" delay={0.02}>
-        <img src="/assets/profile-photo-figma.png" alt="周塞寒头像" loading="lazy" />
+        <PlaceholderImage src="/assets/profile-photo-figma.png" alt="周塞寒头像" loading="lazy" />
       </Reveal>
       <Reveal className="profile-info-content" delay={0.08}>
         <div className="profile-info-heading">
@@ -2878,7 +3007,7 @@ function LifeLinkSection() {
                   key={`${showcase.label}-${showcase.isClone ? 'clone' : index}`}
                   aria-hidden={showcase.isClone ? 'true' : undefined}
                 >
-                  <img
+                  <PlaceholderImage
                     src={showcase.main}
                     alt={showcase.alt}
                     style={{ objectPosition: showcase.mainPosition }}
@@ -3049,7 +3178,7 @@ function Footer() {
             </span>
           </div>
           <figure className="goodbye-image-pill">
-            <video
+            <LazyVideo
               ref={footerVideoRef}
               aria-label="Ice Zhou contact video"
               autoPlay
@@ -3057,8 +3186,8 @@ function Footer() {
               muted
               playsInline
               poster="/assets/goodbye-strip.png"
-              preload="auto"
-              src="/assets/footer-contact-video.mov"
+              preload="metadata"
+              src="/assets/footer-contact-video.mov?v=20260708"
               onTimeUpdate={handleFooterVideoTimeUpdate}
               onPointerEnter={() => footerVideoRef.current?.play().catch(() => {})}
             />
@@ -3258,7 +3387,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
                 {...mediaHoverProps}
                 aria-label={`放大预览：${image.alt || '图片'}`}
               >
-                <img src={image.src} alt={image.alt || ''} loading="lazy" />
+                <PlaceholderImage src={image.src} alt={image.alt || ''} loading="lazy" />
               </button>
             </figure>
           ))}
@@ -3297,7 +3426,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
           {...mediaHoverProps}
           aria-label={`放大预览：${block.alt || '图片'}`}
         >
-          <img src={block.src} alt={block.alt || ''} loading="lazy" />
+          <PlaceholderImage src={block.src} alt={block.alt || ''} loading="lazy" />
         </button>
       </figure>
     );
@@ -3323,7 +3452,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
               {...mediaHoverProps}
               aria-label={`放大预览：${image.alt || '图片'}`}
             >
-              <img
+              <PlaceholderImage
                 src={image.src}
                 alt={image.alt || ''}
                 loading="lazy"
@@ -3354,7 +3483,7 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
             {...mediaHoverProps}
             aria-label={`放大预览：${block.image.alt || '图片'}`}
           >
-            <img src={block.image.src} alt={block.image.alt || ''} loading="lazy" />
+            <PlaceholderImage src={block.image.src} alt={block.image.alt || ''} loading="lazy" />
           </button>
         </figure>
         {block.panelMarkdown ? (
@@ -3378,14 +3507,14 @@ function renderDetailCopyBlock(block, index, mediaPreview = {}) {
               {...mediaHoverProps}
               aria-label={`放大预览：${video.label || '视频'}`}
             >
-              <video
+              <LazyVideo
                 src={video.src}
                 aria-label={video.label}
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
               />
             </button>
           </figure>
@@ -3582,7 +3711,7 @@ function DetailHeroCard({ work }) {
           aria-hidden="true"
         />
       ) : (
-        <img src={card.image} alt={card.alt} loading="eager" />
+        <PlaceholderImage src={card.image} alt={card.alt} loading="eager" />
       )}
     </div>
   );
@@ -3790,7 +3919,11 @@ function WorkDetail({ work, detail }) {
                       onPointerLeave={() => setDetailCursor((cursor) => ({ ...cursor, active: false }))}
                       aria-label={`预览图片：${image.alt}`}
                     >
-                      <img src={image.src} alt={image.alt} loading={image.loading || (index > 1 ? 'lazy' : 'eager')} />
+                      <PlaceholderImage
+                        src={image.src}
+                        alt={image.alt}
+                        loading={image.loading || (index > 1 ? 'lazy' : 'eager')}
+                      />
                     </button>
                   </Reveal>
                 );
@@ -3816,7 +3949,7 @@ function WorkDetail({ work, detail }) {
                 >
                   <span className="detail-related-cover">
                     {related.video ? (
-                      <video
+                      <LazyVideo
                         src={related.video}
                         poster={related.image}
                         muted
@@ -3830,7 +3963,7 @@ function WorkDetail({ work, detail }) {
                         }}
                       />
                     ) : (
-                      <img src={related.image} alt={related.alt} loading="lazy" />
+                      <PlaceholderImage src={related.image} alt={related.alt} loading="lazy" />
                     )}
                   </span>
                 </a>
@@ -3888,7 +4021,7 @@ function WorkDetail({ work, detail }) {
                 controls
               />
             ) : (
-              <img src={previewMedia.previewSrc || previewMedia.src} alt={previewMedia.alt} />
+              <PlaceholderImage src={previewMedia.previewSrc || previewMedia.src} alt={previewMedia.alt} />
             )}
             <figcaption>
               {String(previewIndex + 1).padStart(2, '0')} / {String(mediaCount).padStart(2, '0')}
@@ -4177,7 +4310,6 @@ function App() {
       />
       <RouteTransitionOverlay transition={routeTransition} />
       {page}
-      <Analytics />
     </>
   );
 }
